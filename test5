@@ -645,3 +645,34 @@ game:GetService("RunService").Heartbeat:Connect(function()
         Jumped, Falled, Idled = false, false, false
     end
 end)
+
+-- Self-Healing Rig Fix
+
+
+-- Auto-fix body parts if they fall apart or drift
+task.spawn(function()
+    while true do
+        if Character and Character:IsDescendantOf(workspace) then
+            for _, part in pairs(Character:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    -- Reset physics
+                    part.Velocity = Vector3.zero
+                    part.RotVelocity = Vector3.zero
+                    part.AssemblyLinearVelocity = Vector3.zero
+                    part.AssemblyAngularVelocity = Vector3.zero
+
+                    -- Reset CFrame if detached
+                    if (part.Position - Character.HumanoidRootPart.Position).Magnitude > 15 then
+                        part.CFrame = Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -1)
+                    end
+
+                    -- Ensure client owns it
+                    pcall(function()
+                        part:SetNetworkOwner(game.Players.LocalPlayer)
+                    end)
+                end
+            end
+        end
+        wait(10)
+    end
+end)
