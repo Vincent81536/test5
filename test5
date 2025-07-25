@@ -570,34 +570,78 @@ CreateAnimation("Run", 98913971068661)
 local isRunning = false
 local Humanoid = Character:FindFirstChildOfClass("Humanoid")
 
--- Draggable Toggle Button UI
-local RunToggleUI = Instance.new("ScreenGui", game.CoreGui)
-RunToggleUI.Name = "RunToggleUI"
+-- Persistent GUI for Run Toggle
+local function createRunToggleUI()
+    if game.CoreGui:FindFirstChild("RunToggleUI") then
+        game.CoreGui.RunToggleUI:Destroy()
+    end
 
-local RunButton = Instance.new("TextButton")
-RunButton.Size = UDim2.new(0, 100, 0, 40)
-RunButton.Position = UDim2.new(0, 20, 0.5, 0)
-RunButton.Text = "Run"
-RunButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-RunButton.TextColor3 = Color3.new(1, 1, 1)
-RunButton.Font = Enum.Font.GothamBold
-RunButton.TextSize = 18
-RunButton.Draggable = true
-RunButton.Active = true
-RunButton.Parent = RunToggleUI
+    local RunToggleUI = Instance.new("ScreenGui")
+    RunToggleUI.Name = "RunToggleUI"
+    RunToggleUI.ResetOnSpawn = false
+    RunToggleUI.Parent = game.CoreGui
 
--- Toggle behavior
-RunButton.MouseButton1Click:Connect(function()
-	isRunning = not isRunning
-	if isRunning then
-		Humanoid.WalkSpeed = 30
-		RunButton.Text = "Walk"
-		StopAnim(Character, Anims.Walk)
-		PlayAnim(Character, Anims.Run, 0.1, 1)
-	else
-		Humanoid.WalkSpeed = 16
-		RunButton.Text = "Run"
-		StopAnim(Character, Anims.Run)
-		PlayAnim(Character, Anims.Walk, 0.1, 1)
-	end
+    local RunButton = Instance.new("TextButton")
+    RunButton.Size = UDim2.new(0, 100, 0, 40)
+    RunButton.Position = UDim2.new(0, 20, 0.5, 0)
+    RunButton.Text = "Run"
+    RunButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    RunButton.TextColor3 = Color3.new(1, 1, 1)
+    RunButton.Font = Enum.Font.GothamBold
+    RunButton.TextSize = 18
+    RunButton.Draggable = true
+    RunButton.Active = true
+    RunButton.Parent = RunToggleUI
+
+    RunButton.MouseButton1Click:Connect(function()
+        isRunning = not isRunning
+        RunButton.Text = isRunning and "Walk" or "Run"
+        Humanoid.WalkSpeed = isRunning and 30 or 16
+    end)
+end
+
+createRunToggleUI()
+
+-- Modify heartbeat to play run animation only during movement if run mode is enabled
+game:GetService("RunService").Heartbeat:Connect(function()
+    for _, v in pairs(Humanoid:GetPlayingAnimationTracks()) do
+        v:Stop(0)
+    end
+
+    local HitFloor = Raycast(RootPart.Position, Vector3.new(0, -1, 0), 4, Character)
+    local TorsoVelocity = RootPart.Velocity.Magnitude
+    local TorsoVerticalVelocity = RootPart.Velocity.Y
+
+    if TorsoVerticalVelocity > 1 and not HitFloor then
+        if not Jumped then
+            Jumped = true
+            PlayAnim(Character, Anims.Jump, 0.1, 1)
+        end
+        Falled, Idled, Walked = false, false, false
+    elseif TorsoVerticalVelocity < 1 and not HitFloor then
+        if not Falled then
+            Falled = true
+            PlayAnim(Character, Anims.Fall, 0.1, 1)
+        end
+        Jumped, Idled, Walked = false, false, false
+    elseif TorsoVelocity < 1 and HitFloor then
+        if not Idled then
+            Idled = true
+            PlayAnim(Character, Anims.Idle, 0.1, 0.1)
+        end
+        Jumped, Falled, Walked = false, false, false
+    elseif TorsoVelocity > 1 and HitFloor then
+        if isRunning then
+            if not Walked then
+                Walked = true
+                PlayAnim(Character, Anims.Run, 0.1, 1)
+            end
+        else
+            if not Walked then
+                Walked = true
+                PlayAnim(Character, Anims.Walk, 0.1, 1)
+            end
+        end
+        Jumped, Falled, Idled = false, false, false
+    end
 end)
