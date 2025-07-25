@@ -676,3 +676,31 @@ task.spawn(function()
         wait(10)
     end
 end)
+
+-- Anti-Shake Rig Stabilizer
+task.spawn(function()
+	while true do
+		if Character and Character:IsDescendantOf(workspace) then
+			local root = Character:FindFirstChild("HumanoidRootPart")
+			local isIdle = (root.Velocity.Magnitude < 0.1 and math.abs(root.Velocity.Y) < 0.1)
+
+			if isIdle then
+				for _, part in pairs(Character:GetDescendants()) do
+					if part:IsA("BasePart") and not part.Anchored then
+						part.Velocity = Vector3.zero
+						part.RotVelocity = Vector3.zero
+						part.AssemblyLinearVelocity = Vector3.zero
+						part.AssemblyAngularVelocity = Vector3.zero
+
+						-- Slight refresh to kill drift
+						if (part.Position - root.Position).Magnitude < 5 then
+							part.CFrame = part.CFrame
+						end
+					end
+				end
+			end
+		end
+		wait(0.2)
+	end
+end)
+
