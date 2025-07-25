@@ -594,10 +594,25 @@ local function createRunToggleUI()
     RunButton.Parent = RunToggleUI
 
     RunButton.MouseButton1Click:Connect(function()
-        isRunning = not isRunning
-        RunButton.Text = isRunning and "Walk" or "Run"
-        Humanoid.WalkSpeed = isRunning and 30 or 16
-    end)
+    isRunning = not isRunning
+    RunButton.Text = isRunning and "Walk" or "Run"
+    Humanoid.WalkSpeed = isRunning and 30 or 16
+
+    -- 🟡 Force switch animation immediately if moving
+    local moving = RootPart.Velocity.Magnitude > 1
+    local grounded = Raycast(RootPart.Position, Vector3.new(0, -1, 0), 4, Character)
+
+    if moving and grounded then
+        StopAnim(Character, Anims.Walk)
+        StopAnim(Character, Anims.Run)
+        if isRunning then
+            PlayAnim(Character, Anims.Run, 0.1, 1)
+        else
+            PlayAnim(Character, Anims.Walk, 0.1, 1)
+        end
+    end
+end)
+
 end
 
 createRunToggleUI()
@@ -704,3 +719,239 @@ task.spawn(function()
 	end
 end)
 
+-- Delay until GUI + Forsaken animations are ready
+task.delay(2, function()
+    -- ✅ Search bar for Forsaken tab
+    local ForsakenSearchBox = Instance.new("TextBox")
+    ForsakenSearchBox.PlaceholderText = "Search Forsaken..."
+    ForsakenSearchBox.Size = UDim2.new(0, 200, 0, 30)
+    ForsakenSearchBox.Position = UDim2.new(0, 20, 0, 100)
+    ForsakenSearchBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    ForsakenSearchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ForsakenSearchBox.Text = ""
+    ForsakenSearchBox.Parent = game.CoreGui
+
+    local function BuildForsakenTab(filter)
+        if not DancesB then return end
+        DancesB:Clear()
+        for _, v in pairs(Forsaken) do
+            if v.Divider then
+                DancesB:Line()
+            elseif not filter or v.Name:lower():find(filter:lower()) then
+                DancesB:Button(v.Name, v.Name, function()
+                    if not Anims:FindFirstChild(v.Name) then
+                        CreateAnimation(v.Name, v.ID)
+                    end
+                    PlayAnim(Character, Anims[v.Name], 0, v.Speed or 1)
+                end)
+            end
+        end
+    end
+
+    ForsakenSearchBox:GetPropertyChangedSignal("Text"):Connect(function()
+        BuildForsakenTab(ForsakenSearchBox.Text)
+    end)
+
+    BuildForsakenTab(nil)
+end)
+
+-- Delay until GUI + Forsaken animations are ready
+task.delay(2, function()
+    -- ✅ Search bar for Forsaken tab
+    local ForsakenSearchBox = Instance.new("TextBox")
+    ForsakenSearchBox.PlaceholderText = "Search Forsaken..."
+    ForsakenSearchBox.Size = UDim2.new(0, 200, 0, 30)
+    ForsakenSearchBox.Position = UDim2.new(0, 20, 0, 100)
+    ForsakenSearchBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    ForsakenSearchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ForsakenSearchBox.Text = ""
+    ForsakenSearchBox.Parent = game.CoreGui
+
+    local function BuildForsakenTab(filter)
+        if not DancesB then return end
+        DancesB:Clear()
+        for _, v in pairs(Forsaken) do
+            if v.Divider then
+                DancesB:Line()
+            elseif not filter or v.Name:lower():find(filter:lower()) then
+                DancesB:Button(v.Name, v.Name, function()
+                    if not Anims:FindFirstChild(v.Name) then
+                        CreateAnimation(v.Name, v.ID)
+                    end
+                    PlayAnim(Character, Anims[v.Name], 0, v.Speed or 1)
+                end)
+            end
+        end
+    end
+
+    ForsakenSearchBox:GetPropertyChangedSignal("Text"):Connect(function()
+        BuildForsakenTab(ForsakenSearchBox.Text)
+    end)
+
+    BuildForsakenTab(nil)
+end)
+
+-- Delay until GUI + Forsaken animations are ready
+task.delay(2, function()
+    -- ✅ Search bar for Forsaken tab
+    local ForsakenSearchBox = Instance.new("TextBox")
+    ForsakenSearchBox.PlaceholderText = "Search Forsaken..."
+    ForsakenSearchBox.Size = UDim2.new(0, 200, 0, 30)
+    ForsakenSearchBox.Position = UDim2.new(0, 20, 0, 100)
+    ForsakenSearchBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    ForsakenSearchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ForsakenSearchBox.Text = ""
+    ForsakenSearchBox.Parent = game.CoreGui
+
+    local function BuildForsakenTab(filter)
+        if not DancesB then return end
+        DancesB:Clear()
+        for _, v in pairs(Forsaken) do
+            if v.Divider then
+                DancesB:Line()
+            elseif not filter or v.Name:lower():find(filter:lower()) then
+                DancesB:Button(v.Name, v.Name, function()
+                    if not Anims:FindFirstChild(v.Name) then
+                        CreateAnimation(v.Name, v.ID)
+                    end
+                    PlayAnim(Character, Anims[v.Name], 0, v.Speed or 1)
+                end)
+            end
+        end
+    end
+
+    ForsakenSearchBox:GetPropertyChangedSignal("Text"):Connect(function()
+        BuildForsakenTab(ForsakenSearchBox.Text)
+    end)
+
+    BuildForsakenTab(nil)
+end)
+
+-- Delay until GUI + Forsaken animations are ready
+task.delay(2, function()
+    -- ✅ Search bar for Forsaken tab
+    local ForsakenSearchBox = Instance.new("TextBox")
+    ForsakenSearchBox.PlaceholderText = "Search Forsaken..."
+    ForsakenSearchBox.Size = UDim2.new(0, 200, 0, 30)
+    ForsakenSearchBox.Position = UDim2.new(0, 20, 0, 100)
+    ForsakenSearchBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    ForsakenSearchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ForsakenSearchBox.Text = ""
+    ForsakenSearchBox.Parent = game.CoreGui
+
+    local function BuildForsakenTab(filter)
+        if not DancesB then return end
+        DancesB:Clear()
+        for _, v in pairs(Forsaken) do
+            if v.Divider then
+                DancesB:Line()
+            elseif not filter or v.Name:lower():find(filter:lower()) then
+                DancesB:Button(v.Name, v.Name, function()
+                    if not Anims:FindFirstChild(v.Name) then
+                        CreateAnimation(v.Name, v.ID)
+                    end
+                    PlayAnim(Character, Anims[v.Name], 0, v.Speed or 1)
+                end)
+            end
+        end
+    end
+
+    ForsakenSearchBox:GetPropertyChangedSignal("Text"):Connect(function()
+        BuildForsakenTab(ForsakenSearchBox.Text)
+    end)
+
+    BuildForsakenTab(nil)
+end)
+
+-- Delay until GUI + Forsaken animations are ready
+task.delay(2, function()
+    -- ✅ Search bar for Forsaken tab
+    local ForsakenSearchBox = Instance.new("TextBox")
+    ForsakenSearchBox.PlaceholderText = "Search Forsaken..."
+    ForsakenSearchBox.Size = UDim2.new(0, 200, 0, 30)
+    ForsakenSearchBox.Position = UDim2.new(0, 20, 0, 100)
+    ForsakenSearchBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    ForsakenSearchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ForsakenSearchBox.Text = ""
+    ForsakenSearchBox.Parent = game.CoreGui
+
+    local function BuildForsakenTab(filter)
+        if not DancesB then return end
+        DancesB:Clear()
+        for _, v in pairs(Forsaken) do
+            if v.Divider then
+                DancesB:Line()
+            elseif not filter or v.Name:lower():find(filter:lower()) then
+                DancesB:Button(v.Name, v.Name, function()
+                    if not Anims:FindFirstChild(v.Name) then
+                        CreateAnimation(v.Name, v.ID)
+                    end
+                    PlayAnim(Character, Anims[v.Name], 0, v.Speed or 1)
+                end)
+            end
+        end
+    end
+
+    ForsakenSearchBox:GetPropertyChangedSignal("Text"):Connect(function()
+        BuildForsakenTab(ForsakenSearchBox.Text)
+    end)
+
+    BuildForsakenTab(nil)
+end)
+
+-- Delay until GUI + Forsaken animations are ready
+task.delay(2, function()
+    -- Search bar for Forsaken tab
+    local ForsakenSearchBox = Instance.new("TextBox")
+    ForsakenSearchBox.PlaceholderText = "Search Forsaken..."
+    ForsakenSearchBox.Size = UDim2.new(0, 200, 0, 30)
+    ForsakenSearchBox.Position = UDim2.new(0, 20, 0, 100)
+    ForsakenSearchBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    ForsakenSearchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ForsakenSearchBox.Text = ""
+    ForsakenSearchBox.Parent = game.CoreGui
+
+    local function BuildForsakenTab(filter)
+        if not DancesB then return end
+        DancesB:Clear()
+        for _, v in pairs(Forsaken) do
+            if v.Divider then
+                DancesB:Line()
+            elseif not filter or v.Name:lower():find(filter:lower()) then
+                DancesB:Button(v.Name, v.Name, function()
+                    if not Anims:FindFirstChild(v.Name) then
+                        CreateAnimation(v.Name, v.ID)
+                    end
+                    PlayAnim(Character, Anims[v.Name], 0, v.Speed or 1)
+                end)
+            end
+        end
+    end
+
+    ForsakenSearchBox:GetPropertyChangedSignal("Text"):Connect(function()
+        BuildForsakenTab(ForsakenSearchBox.Text)
+    end)
+
+    BuildForsakenTab(nil)
+end)
+
+-- Minimize button
+local MiniBox = Instance.new("ScreenGui", game.CoreGui)
+MiniBox.Name = "MinimizeDisbeliefHub"
+
+local ToggleButton = Instance.new("TextButton")
+ToggleButton.Text = "GUI"
+ToggleButton.Size = UDim2.new(0, 60, 0, 30)
+ToggleButton.Position = UDim2.new(0, 10, 0.5, 0)
+ToggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+ToggleButton.TextColor3 = Color3.new(1, 1, 1)
+ToggleButton.Draggable = true
+ToggleButton.Active = true
+ToggleButton.Parent = MiniBox
+
+ToggleButton.MouseButton1Click:Connect(function()
+    local Flux = game.CoreGui:FindFirstChild("FluxLib")
+    if Flux then
+        Flux.Enabled = not Flux.Enabled
+    end
+end)
