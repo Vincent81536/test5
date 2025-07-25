@@ -704,3 +704,53 @@ task.spawn(function()
 	end
 end)
 
+-- Add Search Bar to Forsaken Tab
+local searchBox = Instance.new("TextBox")
+searchBox.PlaceholderText = "Search Animations..."
+searchBox.Size = UDim2.new(1, -10, 0, 30)
+searchBox.Position = UDim2.new(0, 5, 0, 5)
+searchBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+searchBox.TextColor3 = Color3.new(1, 1, 1)
+searchBox.Text = ""
+searchBox.TextSize = 14
+searchBox.Font = Enum.Font.Gotham
+searchBox.ClearTextOnFocus = false
+searchBox.Parent = DancesB:CreateCustom("Frame", UDim2.new(1, 0, 0, 40))
+
+searchBox:GetPropertyChangedSignal("Text"):Connect(function()
+	local searchText = searchBox.Text:lower()
+	for _, child in ipairs(DancesB._content:GetChildren()) do
+		if child:IsA("TextButton") then
+			local name = child.Text:lower()
+			child.Visible = name:find(searchText) ~= nil
+		end
+	end
+end)
+
+-- GUI Minimizer
+local minimized = false
+local MiniButton = Instance.new("TextButton")
+MiniButton.Text = "Gui"
+MiniButton.Size = UDim2.new(0, 60, 0, 30)
+MiniButton.Position = UDim2.new(0, 10, 0.9, 0)
+MiniButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+MiniButton.TextColor3 = Color3.new(1, 1, 1)
+MiniButton.Font = Enum.Font.GothamBold
+MiniButton.TextSize = 16
+MiniButton.Draggable = true
+MiniButton.Active = true
+MiniButton.Visible = true
+MiniButton.Parent = game.CoreGui
+
+MiniButton.MouseButton1Click:Connect(function()
+	minimized = not minimized
+	if minimized then
+		GUI._screen.Visible = false
+	else
+		GUI._screen.Visible = true
+	end
+end)
+
+
+
+
