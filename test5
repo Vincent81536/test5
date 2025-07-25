@@ -956,36 +956,15 @@ ToggleButton.MouseButton1Click:Connect(function()
     end
 end)
 
--- 🧷 UNIVERSAL RIG STABILIZER (Hatless / Emperyean / Krypton)
-task.delay(2, function()
-    local player = game.Players.LocalPlayer
-    local rig = workspace:FindFirstChild(player.Name)
-    if not rig then return end
-
-    -- Disable physics on parts
-    for _, part in pairs(rig:GetDescendants()) do
-        if part:IsA("BasePart") then
-            part.Anchored = false
-            part.CanCollide = false
-            part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
-            part.AssemblyLinearVelocity = Vector3.zero
-            part.AssemblyAngularVelocity = Vector3.zero
+-- 🌀 Apply Netless to fake rig
+task.spawn(function()
+    local fake = workspace:FindFirstChild(game.Players.LocalPlayer.Name)
+    while fake do
+        for _, p in pairs(fake:GetDescendants()) do
+            if p:IsA("BasePart") and not p.Anchored then
+                p.Velocity = Vector3.new(35, 0, 0) -- Netless direction
+            end
         end
-    end
-
-    -- Restore & lock Motor6Ds
-    for _, m in pairs(rig:GetDescendants()) do
-        if m:IsA("Motor6D") then
-            m.Enabled = true
-            m.C0 = m.C0 * CFrame.new(0.001, 0, 0)
-        end
-    end
-
-    -- Optional: Prevent hat drift (for Emperyean/Krypton)
-    for _, hat in pairs(rig:GetChildren()) do
-        if hat:IsA("Accessory") and hat:FindFirstChild("Handle") then
-            hat.Handle.CanCollide = false
-            hat.Handle.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
-        end
+        task.wait(0.1)
     end
 end)
