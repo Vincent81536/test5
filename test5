@@ -67,27 +67,36 @@ Hats = {
 local Reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/KadeTheExploiter/Krypton/main/Module.luau"))()
 Character = Reanimate:GetCharacter()
 elseif Reanimate == "Emperyean" then
--- Stabilize Emperyean rig after spawn
-task.delay(2, function()
+local Reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/MelonsStuff/DisbeliefHub/refs/heads/main/Reanimate/Empyrean.lua"))()
+-- STABILIZE EMPERYEAN RIG TO PREVENT LIMB COLLAPSE AND ANIMATION CRASH
+task.delay(1, function()
     local fake = workspace:FindFirstChild(game.Players.LocalPlayer.Name)
     if fake then
-        for _, part in pairs(fake:GetDescendants()) do
-            if part:IsA("BasePart") then
-                part.Anchored = false -- ❗️ allow movement
-                part.CanCollide = false
-                part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+        -- 1. Disable collisions and reset physical properties
+        for _, p in pairs(fake:GetDescendants()) do
+            if p:IsA("BasePart") then
+                p.Anchored = false
+                p.CanCollide = false
+                p.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
             end
         end
 
-        for _, joint in pairs(fake:GetDescendants()) do
-            if joint:IsA("Motor6D") then
-                joint.Enabled = true
+        -- 2. Re-enable and stabilize all Motor6Ds
+        for _, m in pairs(fake:GetDescendants()) do
+            if m:IsA("Motor6D") then
+                m.Enabled = true
+                m.C0 = m.C0 * CFrame.new(0.001, 0, 0) -- slight offset refresh
             end
+        end
+
+        -- 3. OPTIONAL: Lock to accessory hat (used by Emperyean)
+        local accessory = fake:FindFirstChildOfClass("Accessory")
+        if accessory and accessory:FindFirstChild("Handle") then
+            accessory.Handle.Anchored = true
         end
     end
 end)
 
-local Reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/MelonsStuff/DisbeliefHub/refs/heads/main/Reanimate/Empyrean.lua"))()
 Reanimate.Start({
 Accessories = {
 -- SB Rig
