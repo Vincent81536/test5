@@ -68,35 +68,6 @@ local Reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kad
 Character = Reanimate:GetCharacter()
 elseif Reanimate == "Emperyean" then
 local Reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/MelonsStuff/DisbeliefHub/refs/heads/main/Reanimate/Empyrean.lua"))()
--- STABILIZE EMPERYEAN RIG TO PREVENT LIMB COLLAPSE AND ANIMATION CRASH
-task.delay(1, function()
-    local fake = workspace:FindFirstChild(game.Players.LocalPlayer.Name)
-    if fake then
-        -- 1. Disable collisions and reset physical properties
-        for _, p in pairs(fake:GetDescendants()) do
-            if p:IsA("BasePart") then
-                p.Anchored = false
-                p.CanCollide = false
-                p.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
-            end
-        end
-
-        -- 2. Re-enable and stabilize all Motor6Ds
-        for _, m in pairs(fake:GetDescendants()) do
-            if m:IsA("Motor6D") then
-                m.Enabled = true
-                m.C0 = m.C0 * CFrame.new(0.001, 0, 0) -- slight offset refresh
-            end
-        end
-
-        -- 3. OPTIONAL: Lock to accessory hat (used by Emperyean)
-        local accessory = fake:FindFirstChildOfClass("Accessory")
-        if accessory and accessory:FindFirstChild("Handle") then
-            accessory.Handle.Anchored = true
-        end
-    end
-end)
-
 Reanimate.Start({
 Accessories = {
 -- SB Rig
@@ -982,5 +953,39 @@ ToggleButton.MouseButton1Click:Connect(function()
     local Flux = game.CoreGui:FindFirstChild("FluxLib")
     if Flux then
         Flux.Enabled = not Flux.Enabled
+    end
+end)
+
+-- 🧷 UNIVERSAL RIG STABILIZER (Hatless / Emperyean / Krypton)
+task.delay(2, function()
+    local player = game.Players.LocalPlayer
+    local rig = workspace:FindFirstChild(player.Name)
+    if not rig then return end
+
+    -- Disable physics on parts
+    for _, part in pairs(rig:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.Anchored = false
+            part.CanCollide = false
+            part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+            part.AssemblyLinearVelocity = Vector3.zero
+            part.AssemblyAngularVelocity = Vector3.zero
+        end
+    end
+
+    -- Restore & lock Motor6Ds
+    for _, m in pairs(rig:GetDescendants()) do
+        if m:IsA("Motor6D") then
+            m.Enabled = true
+            m.C0 = m.C0 * CFrame.new(0.001, 0, 0)
+        end
+    end
+
+    -- Optional: Prevent hat drift (for Emperyean/Krypton)
+    for _, hat in pairs(rig:GetChildren()) do
+        if hat:IsA("Accessory") and hat:FindFirstChild("Handle") then
+            hat.Handle.CanCollide = false
+            hat.Handle.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+        end
     end
 end)
