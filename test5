@@ -1,4 +1,3 @@
-
 Reanimate = getgenv().Framework
 local Character = nil
 
@@ -253,7 +252,7 @@ local R6Dances = {
 {Name = "Internet Yamero", ID = 99905571448278},
 {Name = "Two", ID = 137845929482571},
 {Name = "Hakari", ID = 92699725136780},
-{Name = "Hakari V2", ID = 139107159497423, Speed = 4},
+{Name = "Hakari V2", ID = 139107159497423, Speed = 3},
 {Name = "Heavy Love", ID = 85856686932206},
 {Name = "Oh Who Is You", ID = 80777442674443},
 {Name = "BHop", ID = 82234401429055},
@@ -561,3 +560,44 @@ Tapping microphone "Hello?, helloooo?? Is this thing on?" —static crackles- �
 So, people, here you go. Another ‘Baseless Accusations & Keyboard Rage!‘ episode. Stay tuned because we are heading straight into the mind-blowing world of ‘People Who Think Copy-Pasting a GitHub Repo Makes Them Elite Hackers!”
 —applause track plays – Until next time!
 ]]
+
+
+
+-- Register the Run animation
+CreateAnimation("Run", 98913971068661)
+
+-- Track run state
+local isRunning = false
+local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+
+-- Draggable Toggle Button UI
+local RunToggleUI = Instance.new("ScreenGui", game.CoreGui)
+RunToggleUI.Name = "RunToggleUI"
+
+local RunButton = Instance.new("TextButton")
+RunButton.Size = UDim2.new(0, 100, 0, 40)
+RunButton.Position = UDim2.new(0, 20, 0.5, 0)
+RunButton.Text = "Run"
+RunButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+RunButton.TextColor3 = Color3.new(1, 1, 1)
+RunButton.Font = Enum.Font.GothamBold
+RunButton.TextSize = 18
+RunButton.Draggable = true
+RunButton.Active = true
+RunButton.Parent = RunToggleUI
+
+-- Toggle behavior
+RunButton.MouseButton1Click:Connect(function()
+	isRunning = not isRunning
+	if isRunning then
+		Humanoid.WalkSpeed = 30
+		RunButton.Text = "Walk"
+		StopAnim(Character, Anims.Walk)
+		PlayAnim(Character, Anims.Run, 0.1, 1)
+	else
+		Humanoid.WalkSpeed = 16
+		RunButton.Text = "Run"
+		StopAnim(Character, Anims.Run)
+		PlayAnim(Character, Anims.Walk, 0.1, 1)
+	end
+end)
