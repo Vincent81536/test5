@@ -955,16 +955,3 @@ ToggleButton.MouseButton1Click:Connect(function()
         Flux.Enabled = not Flux.Enabled
     end
 end)
-
--- 🌀 Apply Netless to fake rig
-task.spawn(function()
-    local fake = workspace:FindFirstChild(game.Players.LocalPlayer.Name)
-    while fake do
-        for _, p in pairs(fake:GetDescendants()) do
-            if p:IsA("BasePart") and not p.Anchored then
-                p.Velocity = Vector3.new(35, 0, 0) -- Netless direction
-            end
-        end
-        task.wait(0.1)
-    end
-end)
