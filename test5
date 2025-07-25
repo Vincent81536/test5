@@ -1,8 +1,3 @@
-To make the "Hakari V2" animation play faster, I will modify the `Hakari2_HakariV2_Updated.txt` content by adding a `Speed = 2` parameter to the "Hakari V2" entry within the `R6Dances` table. This will make the animation play at twice its original speed.
-
-Here is the updated content of the file:
-
-```lua
 Reanimate = getgenv().Framework
 local Character = nil
 
