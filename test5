@@ -241,6 +241,37 @@ local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scr
 local GUI = Lib:Window("Disbelief Hub", "Irony at its finest.", Color3.fromRGB(0, 0, 0), Enum.KeyCode.LeftControl)
 local DancesA = GUI:Tab("Animations - R6 Dances", "http://www.roblox.com/asset/?id=6023426915")
 local DancesB = GUI:Tab("Animations - Forsaken", "http://www.roblox.com/asset/?id=6023426915")
+local ForsakenSearchBox = Instance.new("TextBox")
+ForsakenSearchBox.PlaceholderText = "Search Forsaken..."
+ForsakenSearchBox.Size = UDim2.new(0, 200, 0, 30)
+ForsakenSearchBox.Position = UDim2.new(0, 20, 0, 100)
+ForsakenSearchBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+ForsakenSearchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+ForsakenSearchBox.Text = ""
+ForsakenSearchBox.Parent = game.CoreGui
+
+local function BuildForsakenTab(filter)
+    DancesB:Clear()
+    for _, v in pairs(Forsaken) do
+        if v.Divider then
+            DancesB:Line()
+        elseif not filter or v.Name:lower():find(filter:lower()) then
+            DancesB:Button(v.Name, v.Name, function()
+                if not Anims:FindFirstChild(v.Name) then
+                    CreateAnimation(v.Name, v.ID)
+                end
+                PlayAnim(Character, Anims[v.Name], 0, v.Speed or 1)
+            end)
+        end
+    end
+end
+
+ForsakenSearchBox:GetPropertyChangedSignal("Text"):Connect(function()
+    BuildForsakenTab(ForsakenSearchBox.Text)
+end)
+
+BuildForsakenTab(nil)
+
 
 local R6Dances = {
 {Name = "Boombox Dance", ID = 84471848998012, SoundID = 1839931160},
@@ -704,53 +735,24 @@ task.spawn(function()
 	end
 end)
 
--- Add Search Bar to Forsaken Tab
-local searchBox = Instance.new("TextBox")
-searchBox.PlaceholderText = "Search Animations..."
-searchBox.Size = UDim2.new(1, -10, 0, 30)
-searchBox.Position = UDim2.new(0, 5, 0, 5)
-searchBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-searchBox.TextColor3 = Color3.new(1, 1, 1)
-searchBox.Text = ""
-searchBox.TextSize = 14
-searchBox.Font = Enum.Font.Gotham
-searchBox.ClearTextOnFocus = false
-searchBox.Parent = DancesB:CreateCustom("Frame", UDim2.new(1, 0, 0, 40))
+-- Minimize GUI toggle button
+local MiniBox = Instance.new("ScreenGui", game.CoreGui)
+MiniBox.Name = "MinimizeDisbeliefHub"
 
-searchBox:GetPropertyChangedSignal("Text"):Connect(function()
-	local searchText = searchBox.Text:lower()
-	for _, child in ipairs(DancesB._content:GetChildren()) do
-		if child:IsA("TextButton") then
-			local name = child.Text:lower()
-			child.Visible = name:find(searchText) ~= nil
-		end
-	end
+local ToggleButton = Instance.new("TextButton")
+ToggleButton.Text = "GUI"
+ToggleButton.Size = UDim2.new(0, 60, 0, 30)
+ToggleButton.Position = UDim2.new(0, 10, 0.5, 0)
+ToggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+ToggleButton.TextColor3 = Color3.new(1, 1, 1)
+ToggleButton.Draggable = true
+ToggleButton.Active = true
+ToggleButton.Parent = MiniBox
+
+ToggleButton.MouseButton1Click:Connect(function()
+    local Flux = game.CoreGui:FindFirstChild("FluxLib")
+    if Flux then
+        Flux.Enabled = not Flux.Enabled
+    end
 end)
-
--- GUI Minimizer
-local minimized = false
-local MiniButton = Instance.new("TextButton")
-MiniButton.Text = "Gui"
-MiniButton.Size = UDim2.new(0, 60, 0, 30)
-MiniButton.Position = UDim2.new(0, 10, 0.9, 0)
-MiniButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-MiniButton.TextColor3 = Color3.new(1, 1, 1)
-MiniButton.Font = Enum.Font.GothamBold
-MiniButton.TextSize = 16
-MiniButton.Draggable = true
-MiniButton.Active = true
-MiniButton.Visible = true
-MiniButton.Parent = game.CoreGui
-
-MiniButton.MouseButton1Click:Connect(function()
-	minimized = not minimized
-	if minimized then
-		GUI._screen.Visible = false
-	else
-		GUI._screen.Visible = true
-	end
-end)
-
-
-
 
