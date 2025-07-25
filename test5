@@ -253,7 +253,7 @@ local R6Dances = {
 {Name = "Internet Yamero", ID = 99905571448278},
 {Name = "Two", ID = 137845929482571},
 {Name = "Hakari", ID = 92699725136780},
-{Name = "Hakari V2", ID = 139107159497423, Speed = 3},
+{Name = "Hakari V2", ID = 139107159497423, Speed = 4},
 {Name = "Heavy Love", ID = 85856686932206},
 {Name = "Oh Who Is You", ID = 80777442674443},
 {Name = "BHop", ID = 82234401429055},
