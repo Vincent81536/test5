@@ -71,14 +71,9 @@ elseif Reanimate == "Emperyean" then
 task.delay(2, function()
     local fake = workspace:FindFirstChild(game.Players.LocalPlayer.Name)
     if fake then
-        local root = fake:FindFirstChild("HumanoidRootPart")
-        if root then
-            root.Anchored = true
-        end
-
         for _, part in pairs(fake:GetDescendants()) do
             if part:IsA("BasePart") then
-                part.Anchored = (part.Name == "HumanoidRootPart")
+                part.Anchored = false -- ❗️ allow movement
                 part.CanCollide = false
                 part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
             end
@@ -91,6 +86,7 @@ task.delay(2, function()
         end
     end
 end)
+
 local Reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/MelonsStuff/DisbeliefHub/refs/heads/main/Reanimate/Empyrean.lua"))()
 Reanimate.Start({
 Accessories = {
