@@ -67,6 +67,30 @@ Hats = {
 local Reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/KadeTheExploiter/Krypton/main/Module.luau"))()
 Character = Reanimate:GetCharacter()
 elseif Reanimate == "Emperyean" then
+-- Stabilize Emperyean rig after spawn
+task.delay(2, function()
+    local fake = workspace:FindFirstChild(game.Players.LocalPlayer.Name)
+    if fake then
+        local root = fake:FindFirstChild("HumanoidRootPart")
+        if root then
+            root.Anchored = true
+        end
+
+        for _, part in pairs(fake:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.Anchored = (part.Name == "HumanoidRootPart")
+                part.CanCollide = false
+                part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+            end
+        end
+
+        for _, joint in pairs(fake:GetDescendants()) do
+            if joint:IsA("Motor6D") then
+                joint.Enabled = true
+            end
+        end
+    end
+end)
 local Reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/MelonsStuff/DisbeliefHub/refs/heads/main/Reanimate/Empyrean.lua"))()
 Reanimate.Start({
 Accessories = {
