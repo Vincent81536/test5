@@ -176,47 +176,6 @@ SimulationRadius = 2147483647,
 TeleportRadius = 12,
 UseServerBreakJoints = true,
 })
--- ✅ PASTE THIS ↓↓↓
-    task.delay(2, function()
-        local rig = workspace:FindFirstChild(game.Players.LocalPlayer.Name)
-        if not rig then return end
-
-        for _, part in pairs(rig:GetDescendants()) do
-            if part:IsA("BasePart") then
-                part.Anchored = false
-                part.CanCollide = false
-                part.AssemblyLinearVelocity = Vector3.zero
-                part.AssemblyAngularVelocity = Vector3.zero
-                part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
-            end
-        end
-
-        for _, motor in pairs(rig:GetDescendants()) do
-            if motor:IsA("Motor6D") then
-                motor.Enabled = true
-                motor.C0 = motor.C0 * CFrame.new(0.001, 0, 0)
-            end
-        end
-
-        for _, acc in pairs(rig:GetChildren()) do
-            if acc:IsA("Accessory") and acc:FindFirstChild("Handle") then
-                acc.Handle.CanCollide = false
-                acc.Handle.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
-            end
-        end
-
-        task.spawn(function()
-            while rig and rig.Parent do
-                for _, p in pairs(rig:GetDescendants()) do
-                    if p:IsA("BasePart") and not p.Anchored then
-                        p.Velocity = Vector3.new(0, 25, 0)
-                    end
-                end
-                task.wait(0.1)
-            end
-        end)
-    end)
-
 Name = game.Players.LocalPlayer.Name
 Character = workspace[Name]
 else
@@ -229,6 +188,13 @@ local RootPart = Character.HumanoidRootPart
 local Jumped,Falled,Idled,Walked = false,false,false,false
 local AnimatorModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/MelonsStuff/DisbeliefHub/refs/heads/main/Scripts/AnimatorModule.lua"))()
 local Anims = Instance.new("Folder", workspace)
+
+
+local function SafeCheckGroundPosition()
+    if RootPart.Position.Y < -5 then -- adjust this Y threshold if needed
+        RootPart.CFrame = CFrame.new(RootPart.Position.X, 5, RootPart.Position.Z)
+    end
+end
 
 function Raycast(POSITION, DIRECTION, RANGE, IGNOREDECENDANTS)
 return workspace:FindPartOnRay(Ray.new(POSITION, DIRECTION.unit * RANGE), IGNOREDECENDANTS)
@@ -713,6 +679,13 @@ game:GetService("RunService").Heartbeat:Connect(function()
     end
 end)
 
+-- Add safety check after "Run away V2" ends
+if Anims["Run away V2"] and not Anims["Run away V2"].IsPlaying then
+    SafeCheckGroundPosition()
+end
+
+
+
 -- Self-Healing Rig Fix
 
 
@@ -744,7 +717,33 @@ task.spawn(function()
     end
 end)
 
--- Anti-Shake Rig Stabilizer
+-- Anti-Shake Rig Stabilizer (patched to skip during Run away V2)
+task.spawn(function()
+    while true do
+        local root = Character:FindFirstChild("HumanoidRootPart")
+        if root and Character:IsDescendantOf(workspace) then
+            if Anims["Run away V2"] and Anims["Run away V2"].IsPlaying then
+                -- Skip stabilization during cinematic animation
+            else
+                local isIdle = (root.Velocity.Magnitude < 0.1 and math.abs(root.Velocity.Y) < 0.1)
+                if isIdle then
+                    for _, part in pairs(Character:GetDescendants()) do
+                        if part:IsA("BasePart") and not part.Anchored then
+                            part.Velocity = Vector3.zero
+                            part.RotVelocity = Vector3.zero
+                            part.AssemblyLinearVelocity = Vector3.zero
+                            part.AssemblyAngularVelocity = Vector3.zero
+                            if (part.Position - root.Position).Magnitude < 5 then
+                                part.CFrame = part.CFrame
+                            end
+                        end
+                    end
+                end
+            end
+        end
+        wait(0.2)
+    end
+end)
 task.spawn(function()
 	while true do
 		if Character and Character:IsDescendantOf(workspace) then
@@ -828,3 +827,14 @@ ToggleButton.MouseButton1Click:Connect(function()
     end
 end)
 
+
+
+
+-- Hook into animation stop to re-anchor player
+task.delay(2, function()
+    if Anims["Run away V2"] then
+        Anims["Run away V2"].Stopped:Connect(function()
+            RootPart.CFrame = RootPart.CFrame + Vector3.new(0, 3, 0)
+        end)
+    end
+end)
