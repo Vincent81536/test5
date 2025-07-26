@@ -239,6 +239,9 @@ end
 
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/fluxlib.txt"))()
 local GUI = Lib:Window("Disbelief Hub", "Irony at its finest.", Color3.fromRGB(0, 0, 0), Enum.KeyCode.LeftControl)
+GUI._screen.Visible = true
+GUI._screen.Position = UDim2.new(0.5, -GUI._screen.AbsoluteSize.X / 2, 0.5, -GUI._screen.AbsoluteSize.Y / 2)
+addMainMinimizeButton()
 addMainMinimizeButton()
 local DancesA = GUI:Tab("Animations - R6 Dances", "http://www.roblox.com/asset/?id=6023426915")
 local DancesB = GUI:Tab("Animations - Forsaken", "http://www.roblox.com/asset/?id=6023426915")
