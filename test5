@@ -238,11 +238,14 @@ game.CoreGui:FindFirstChild("FluxLib"):Destroy()
 end
 
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/fluxlib.txt"))()
+
 local GUI = Lib:Window("Disbelief Hub", "Irony at its finest.", Color3.fromRGB(0, 0, 0), Enum.KeyCode.LeftControl)
 GUI._screen.Visible = true
+task.wait(0.5)
 GUI._screen.Position = UDim2.new(0.5, -GUI._screen.AbsoluteSize.X / 2, 0.5, -GUI._screen.AbsoluteSize.Y / 2)
+
 addMainMinimizeButton()
-addMainMinimizeButton()
+
 local DancesA = GUI:Tab("Animations - R6 Dances", "http://www.roblox.com/asset/?id=6023426915")
 local DancesB = GUI:Tab("Animations - Forsaken", "http://www.roblox.com/asset/?id=6023426915")
 
@@ -754,7 +757,7 @@ local function createMiniGuiButton()
 	end)
 end
 
-local function addMainMinimizeButton()
+local function 
 	if not GUI or not GUI._screen then return end
 
 	local minimizeBtn = Instance.new("TextButton")
@@ -778,4 +781,59 @@ game.Players.LocalPlayer.CharacterAdded:Connect(function()
 	if oldMini then
 		oldMini:Destroy()
 	end
+end)
+
+
+-- GUI Minimize Button System
+local player = game.Players.LocalPlayer
+
+local function createMiniGuiButton()
+	if game.CoreGui:FindFirstChild("GuiMiniButton") then
+		game.CoreGui.GuiMiniButton:Destroy()
+	end
+
+	local miniButton = Instance.new("TextButton")
+	miniButton.Name = "GuiMiniButton"
+	miniButton.Text = "Gui"
+	miniButton.Size = UDim2.new(0, 80, 0, 30)
+	miniButton.Position = UDim2.new(0, 10, 0.9, 0)
+	miniButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+	miniButton.TextColor3 = Color3.new(1, 1, 1)
+	miniButton.Font = Enum.Font.GothamBold
+	miniButton.TextSize = 16
+	miniButton.Draggable = true
+	miniButton.Active = true
+	miniButton.Parent = game.CoreGui
+
+	miniButton.MouseButton1Click:Connect(function()
+		if GUI and GUI._screen then
+			GUI._screen.Position = UDim2.new(0.5, -GUI._screen.AbsoluteSize.X / 2, 0.5, -GUI._screen.AbsoluteSize.Y / 2)
+			GUI._screen.Visible = true
+		end
+		miniButton:Destroy()
+	end)
+end
+
+function addMainMinimizeButton()
+	if not GUI or not GUI._screen then return end
+
+	local minimizeBtn = Instance.new("TextButton")
+	minimizeBtn.Text = "-"
+	minimizeBtn.Size = UDim2.new(0, 25, 0, 25)
+	minimizeBtn.Position = UDim2.new(1, -30, 0, 5)
+	minimizeBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	minimizeBtn.TextColor3 = Color3.new(1, 1, 1)
+	minimizeBtn.Font = Enum.Font.GothamBold
+	minimizeBtn.TextSize = 18
+	minimizeBtn.Parent = GUI._screen
+
+	minimizeBtn.MouseButton1Click:Connect(function()
+		GUI._screen.Visible = false
+		createMiniGuiButton()
+	end)
+end
+
+player.CharacterAdded:Connect(function()
+	local oldMini = game.CoreGui:FindFirstChild("GuiMiniButton")
+	if oldMini then oldMini:Destroy() end
 end)
