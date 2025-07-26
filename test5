@@ -1,3 +1,11 @@
+
+-- Function to prevent falling below map
+local function SafeCheckGroundPosition()
+    if RootPart and RootPart.Position.Y < -5 then
+        RootPart.CFrame = CFrame.new(RootPart.Position.X, 5, RootPart.Position.Z)
+    end
+end
+
 Reanimate = getgenv().Framework
 local Character = nil
 
@@ -766,7 +774,47 @@ task.delay(2, function()
     BuildForsakenTab(nil)
 end)
 
--- ✅ Minimize button
+-- ✅ Minimize button (Updated to recenter and hide on death)
+local MiniBox = Instance.new("ScreenGui")
+MiniBox.Name = "MinimizeDisbeliefHub"
+MiniBox.ResetOnSpawn = false
+MiniBox.Parent = game.CoreGui
+
+local ToggleButton = Instance.new("TextButton")
+ToggleButton.Text = "GUI"
+ToggleButton.Size = UDim2.new(0, 60, 0, 30)
+ToggleButton.Position = UDim2.new(0, 10, 0.5, 0)
+ToggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+ToggleButton.TextColor3 = Color3.new(1, 1, 1)
+ToggleButton.Draggable = true
+ToggleButton.Active = true
+ToggleButton.Parent = MiniBox
+
+ToggleButton.MouseButton1Click:Connect(function()
+    local Flux = game.CoreGui:FindFirstChild("FluxLib")
+    if Flux then
+        Flux.Enabled = not Flux.Enabled
+        if Flux.Enabled and Flux:FindFirstChild("Main") then
+            local main = Flux.Main
+            main.Position = UDim2.new(0.5, -main.Size.X.Offset / 2, 0.5, -main.Size.Y.Offset / 2)
+        end
+    end
+end)
+
+-- Hide button and GUI on death
+local function SetupDeathListener()
+    if Character and Character:FindFirstChild("Humanoid") then
+        Character.Humanoid.Died:Connect(function()
+            MiniBox.Enabled = false
+            local Flux = game.CoreGui:FindFirstChild("FluxLib")
+            if Flux then
+                Flux.Enabled = false
+            end
+        end)
+    end
+end
+
+task.delay(2, SetupDeathListener)
 local MiniBox = Instance.new("ScreenGui", game.CoreGui)
 MiniBox.Name = "MinimizeDisbeliefHub"
 
@@ -823,7 +871,47 @@ task.delay(2, function()
     BuildForsakenTab(nil)
 end)
 
--- ✅ Minimize button
+-- ✅ Minimize button (Updated to recenter and hide on death)
+local MiniBox = Instance.new("ScreenGui")
+MiniBox.Name = "MinimizeDisbeliefHub"
+MiniBox.ResetOnSpawn = false
+MiniBox.Parent = game.CoreGui
+
+local ToggleButton = Instance.new("TextButton")
+ToggleButton.Text = "GUI"
+ToggleButton.Size = UDim2.new(0, 60, 0, 30)
+ToggleButton.Position = UDim2.new(0, 10, 0.5, 0)
+ToggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+ToggleButton.TextColor3 = Color3.new(1, 1, 1)
+ToggleButton.Draggable = true
+ToggleButton.Active = true
+ToggleButton.Parent = MiniBox
+
+ToggleButton.MouseButton1Click:Connect(function()
+    local Flux = game.CoreGui:FindFirstChild("FluxLib")
+    if Flux then
+        Flux.Enabled = not Flux.Enabled
+        if Flux.Enabled and Flux:FindFirstChild("Main") then
+            local main = Flux.Main
+            main.Position = UDim2.new(0.5, -main.Size.X.Offset / 2, 0.5, -main.Size.Y.Offset / 2)
+        end
+    end
+end)
+
+-- Hide button and GUI on death
+local function SetupDeathListener()
+    if Character and Character:FindFirstChild("Humanoid") then
+        Character.Humanoid.Died:Connect(function()
+            MiniBox.Enabled = false
+            local Flux = game.CoreGui:FindFirstChild("FluxLib")
+            if Flux then
+                Flux.Enabled = false
+            end
+        end)
+    end
+end
+
+task.delay(2, SetupDeathListener)
 local MiniBox = Instance.new("ScreenGui", game.CoreGui)
 MiniBox.Name = "MinimizeDisbeliefHub"
 
@@ -844,3 +932,14 @@ ToggleButton.MouseButton1Click:Connect(function()
     end
 end)
 
+
+
+
+-- Restore character if "Run away V2" animation ends and character fell
+task.delay(2, function()
+    if Anims["Run away V2"] then
+        Anims["Run away V2"].Stopped:Connect(function()
+            SafeCheckGroundPosition()
+        end)
+    end
+end)
