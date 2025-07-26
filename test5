@@ -474,10 +474,13 @@ local Forsaken = {
 {Name = "Richard Watterson (the hero)", ID = 74012585744751},
 {Name = "Immaterial", ID = 90127032448242},
 {Name = "Run away", ID = 131562546189485},
-{Name = "Run away V2", ID = 95169538787696},
+{Name = "Run away V2", ID = 119147810948063},
 {Name = "Headlock", ID = 97992194141034},
 {Name = "Gangdance", ID = 121267065315946},
 {Name = "Bluelock", ID = 76975616044095},
+{Name = "test1", ID = 110536141087568},
+{Name = "test2", ID = 103112841595182},
+{Name = "tst3", ID = 95650849617284},
 }
 
 for i, v in pairs(Forsaken) do
