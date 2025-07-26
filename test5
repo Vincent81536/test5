@@ -67,50 +67,8 @@ Hats = {
 local Reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/KadeTheExploiter/Krypton/main/Module.luau"))()
 Character = Reanimate:GetCharacter()
 elseif Reanimate == "Emperyean" then
-    local Emperyean = loadstring(game:HttpGet("https://raw.githubusercontent.com/MelonsStuff/DisbeliefHub/refs/heads/main/Reanimate/Empyrean.lua"))()
-    Emperyean.Start({SetCharacter = false})
-
-    -- PASTE THIS ↓↓↓
-    task.delay(2, function()
-        local rig = workspace:FindFirstChild(game.Players.LocalPlayer.Name)
-        if not rig then return end
-
-        for _, part in pairs(rig:GetDescendants()) do
-            if part:IsA("BasePart") then
-                part.Anchored = false
-                part.CanCollide = false
-                part.AssemblyLinearVelocity = Vector3.zero
-                part.AssemblyAngularVelocity = Vector3.zero
-                part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
-            end
-        end
-
-        for _, motor in pairs(rig:GetDescendants()) do
-            if motor:IsA("Motor6D") then
-                motor.Enabled = true
-                motor.C0 = motor.C0 * CFrame.new(0.001, 0, 0)
-            end
-        end
-
-        for _, acc in pairs(rig:GetChildren()) do
-            if acc:IsA("Accessory") and acc:FindFirstChild("Handle") then
-                acc.Handle.CanCollide = false
-                acc.Handle.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
-            end
-        end
-
-        task.spawn(function()
-            while rig and rig.Parent do
-                for _, p in pairs(rig:GetDescendants()) do
-                    if p:IsA("BasePart") and not p.Anchored then
-                        p.Velocity = Vector3.new(0, 25, 0)
-                    end
-                end
-                task.wait(0.1)
-            end
-        end)
-    end)
-
+local Reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/MelonsStuff/DisbeliefHub/refs/heads/main/Reanimate/Empyrean.lua"))()
+Reanimate.Start({
 Accessories = {
 -- SB Rig
 { MeshId = "125443585075666", Name = "Torso", Offset = CFrame.Angles(0, 3.15, 0), TextureId = "121023324229475" },
@@ -218,6 +176,47 @@ SimulationRadius = 2147483647,
 TeleportRadius = 12,
 UseServerBreakJoints = true,
 })
+-- ✅ PASTE THIS ↓↓↓
+    task.delay(2, function()
+        local rig = workspace:FindFirstChild(game.Players.LocalPlayer.Name)
+        if not rig then return end
+
+        for _, part in pairs(rig:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.Anchored = false
+                part.CanCollide = false
+                part.AssemblyLinearVelocity = Vector3.zero
+                part.AssemblyAngularVelocity = Vector3.zero
+                part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+            end
+        end
+
+        for _, motor in pairs(rig:GetDescendants()) do
+            if motor:IsA("Motor6D") then
+                motor.Enabled = true
+                motor.C0 = motor.C0 * CFrame.new(0.001, 0, 0)
+            end
+        end
+
+        for _, acc in pairs(rig:GetChildren()) do
+            if acc:IsA("Accessory") and acc:FindFirstChild("Handle") then
+                acc.Handle.CanCollide = false
+                acc.Handle.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+            end
+        end
+
+        task.spawn(function()
+            while rig and rig.Parent do
+                for _, p in pairs(rig:GetDescendants()) do
+                    if p:IsA("BasePart") and not p.Anchored then
+                        p.Velocity = Vector3.new(0, 25, 0)
+                    end
+                end
+                task.wait(0.1)
+            end
+        end)
+    end)
+
 Name = game.Players.LocalPlayer.Name
 Character = workspace[Name]
 else
@@ -281,6 +280,13 @@ end
 
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/fluxlib.txt"))()
 local GUI = Lib:Window("Disbelief Hub", "Irony at its finest.", Color3.fromRGB(0, 0, 0), Enum.KeyCode.LeftControl)
+-- ⬇️ Center GUI when it spawns
+task.delay(0.5, function()
+    local fluxUI = game.CoreGui:FindFirstChild("FluxLib")
+    if fluxUI and fluxUI:FindFirstChild("Main") then
+        fluxUI.Main.Position = UDim2.new(0.5, -fluxUI.Main.Size.X.Offset/2, 0.5, -fluxUI.Main.Size.Y.Offset/2)
+    end
+end)
 local DancesA = GUI:Tab("Animations - R6 Dances", "http://www.roblox.com/asset/?id=6023426915")
 local DancesB = GUI:Tab("Animations - Forsaken", "http://www.roblox.com/asset/?id=6023426915")
 
@@ -507,6 +513,15 @@ local Forsaken = {
 {Name = "Silly Billy", ID = 107464355830477},
 {Name = "Subterfuge", ID = 87482480949358},
 {Name = "Richard Watterson (the hero)", ID = 74012585744751},
+{Name = "Immaterial", ID = 90127032448242},
+{Name = "Run away", ID = 131562546189485},
+{Name = "Run away V2", ID = 119147810948063},
+{Name = "Headlock", ID = 97992194141034},
+{Name = "Gangdance", ID = 121267065315946},
+{Name = "Bluelock", ID = 76975616044095},
+{Name = "test1", ID = 110536141087568},
+{Name = "test2", ID = 103112841595182},
+{Name = "tst3", ID = 95650849617284},
 }
 
 for i, v in pairs(Forsaken) do
@@ -636,10 +651,20 @@ local function createRunToggleUI()
     RunButton.Parent = RunToggleUI
 
     RunButton.MouseButton1Click:Connect(function()
-        isRunning = not isRunning
-        RunButton.Text = isRunning and "Walk" or "Run"
-        Humanoid.WalkSpeed = isRunning and 30 or 16
-    end)
+	isRunning = not isRunning
+	RunButton.Text = isRunning and "Walk" or "Run"
+	Humanoid.WalkSpeed = isRunning and 30 or 16
+
+	-- Immediately play run animation if toggled and moving
+	if isRunning and Humanoid.MoveDirection.Magnitude > 0 then
+		StopAnim(Character, Anims.Walk)
+		PlayAnim(Character, Anims.Run, 0.1, 1)
+	elseif not isRunning and Humanoid.MoveDirection.Magnitude > 0 then
+		StopAnim(Character, Anims.Run)
+		PlayAnim(Character, Anims.Walk, 0.1, 1)
+	end
+end)
+
 end
 
 createRunToggleUI()
@@ -744,5 +769,62 @@ task.spawn(function()
 		end
 		wait(0.2)
 	end
+end)
+
+-- Delay until GUI + Forsaken animations are ready
+task.delay(2, function()
+    -- ✅ Search bar for Forsaken tab
+    local ForsakenSearchBox = Instance.new("TextBox")
+    ForsakenSearchBox.PlaceholderText = "Search Forsaken..."
+    ForsakenSearchBox.Size = UDim2.new(0, 200, 0, 30)
+    ForsakenSearchBox.Position = UDim2.new(0, 20, 0, 100)
+    ForsakenSearchBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    ForsakenSearchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ForsakenSearchBox.Text = ""
+    ForsakenSearchBox.Parent = game.CoreGui
+
+    local function BuildForsakenTab(filter)
+        if not DancesB then return end
+        DancesB:Clear()
+        for _, v in pairs(Forsaken) do
+            if v.Divider then
+                DancesB:Line()
+            elseif not filter or v.Name:lower():find(filter:lower()) then
+                DancesB:Button(v.Name, v.Name, function()
+                    if not Anims:FindFirstChild(v.Name) then
+                        CreateAnimation(v.Name, v.ID)
+                    end
+                    PlayAnim(Character, Anims[v.Name], 0, v.Speed or 1)
+                end)
+            end
+        end
+    end
+
+    ForsakenSearchBox:GetPropertyChangedSignal("Text"):Connect(function()
+        BuildForsakenTab(ForsakenSearchBox.Text)
+    end)
+
+    BuildForsakenTab(nil)
+end)
+
+-- ✅ Minimize button
+local MiniBox = Instance.new("ScreenGui", game.CoreGui)
+MiniBox.Name = "MinimizeDisbeliefHub"
+
+local ToggleButton = Instance.new("TextButton")
+ToggleButton.Text = "GUI"
+ToggleButton.Size = UDim2.new(0, 60, 0, 30)
+ToggleButton.Position = UDim2.new(0, 10, 0.5, 0)
+ToggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+ToggleButton.TextColor3 = Color3.new(1, 1, 1)
+ToggleButton.Draggable = true
+ToggleButton.Active = true
+ToggleButton.Parent = MiniBox
+
+ToggleButton.MouseButton1Click:Connect(function()
+    local Flux = game.CoreGui:FindFirstChild("FluxLib")
+    if Flux then
+        Flux.Enabled = not Flux.Enabled
+    end
 end)
 
