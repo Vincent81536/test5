@@ -1,4 +1,3 @@
--- Existing code from Moreanimations.txt
 Reanimate = getgenv().Framework
 local Character = nil
 
@@ -89,10 +88,10 @@ Accessories = {
 { MeshId = "123388937940630", Name = "Left Leg", Offset = CFrame.Angles(0, 1.57, 0), TextureId = "84429400539007" },
 -- Classic Cheap Rig
 { MeshId = "12344206657", Name = "Left Arm", Offset = CFrame.new(0.05, 0.05, -0.075) * CFrame.Angles(-2, 0, 0), TextureId = "12344206675" },
-{ MeshId = "12344207341", Name = "Right Arm", Offset = CFrame.new(-0.05, 0.05, -0.075) * CFrame.Angles(-1.95, 0, 0), TextureId = "12344207341" },
+{ MeshId = "12344207333", Name = "Right Arm", Offset = CFrame.new(-0.05, 0.05, -0.075) * CFrame.Angles(-1.95, 0, 0), TextureId = "12344207341" },
 { MeshId = "11159370334", Name = "Left Leg", Offset = CFrame.Angles(1.57, 1.57, 0), TextureId = "11159284657" },
 { MeshId = "11263221350", Name = "Right Leg", Offset = CFrame.Angles(1.57, -1.57, 0), TextureId = "11263219250" },
--- Grey Mesh Rig
+-- Grey Mesh Rig 
 { MeshId = "127552124837034", Names = {"Torso"}, Offset = CFrame.Angles(0, 0, 0), TextureId = "131014325980101" },--14255556501
 { MeshId = "117287001096396", Names = { "Left Arm", "Right Arm"}, Offset = CFrame.Angles(0, 0, 0), TextureId = "120169691545791" },--14255556501
 { MeshId = "121304376791439", Names = { "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 0), TextureId = "131014325980101" },--18641142410
@@ -131,7 +130,7 @@ Accessories = {
 { MeshId = "14255522247", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "14255543546" },--14255556501
 { MeshId = "14255522247", Names = { "Right Arm", "Left Arm", "Right Leg", "Left Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "14255543546" },--14255554762
 { MeshId = "17374767929", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "17374768001" },--17374851733
-{ MeshId = "17374767929", Names = { "Right Arm", "Left Arm", "Right Leg", "Left Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "17374846953" },
+{ MeshId = "17374767929", Names = { "Right Arm", "Left Arm", "Right Leg", "Left Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "17374768001" },--17374846953
 { MeshId = "14255522247", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "14255544465" },--14255560646
 { MeshId = "14255522247", Names = { "Right Arm", "Left Arm", "Right Leg", "Left Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "14255544465" },--14255562939
 { MeshId = "18640914129", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.identity, TextureId = "18640914168" },--18641142410
@@ -139,7 +138,7 @@ Accessories = {
 { MeshId = "18640901641", Names = { "Left Leg", "Right Leg", "Left Arm", "Right Arm" }, Offset = CFrame.identity, TextureId = "18640901676" },--18641187217
 { MeshId = "18640901641", Names = { "Right Leg", "Left Leg", "Right Arm", "Left Arm" }, Offset = CFrame.identity, TextureId = "18640901676" },--18641157833
 { MeshId = "17387586286", Names = { "Left Leg", "Right Leg", "Left Arm", "Right Arm" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "17387586304" },--17387616772
-{ MeshId = "17387586286", Names = { "Right Leg", "Left Leg", "Right Arm", "Left Arm" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "17393641992" },
+{ MeshId = "17387586286", Names = { "Right Leg", "Left Leg", "Right Arm", "Left Arm" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "17387586304" },--17393641992
 { MeshId = "3030546036", Names = { "Left Arm", "Left Leg", "Right Arm", "Right Leg" }, Offset = CFrame.Angles(- 1.57, 0, 0), TextureId = "" },
 { MeshId = "4324138105", Names = { "Left Arm", "Left Leg", "Right Arm", "Right Leg" }, Offset = CFrame.Angles(- 1.57, 0, 0), TextureId = "" },
 { MeshId = "18640899369", Name = "Torso", Offset = CFrame.identity, TextureId = "18640899481" },--18641046146
@@ -326,44 +325,323 @@ local R6Dances = {
 {Divider = true},  
 {Name = "Fein", ID = 115727639577589},
 {Name = "Flamenco", ID = 112606613683393},
--- End of existing code
+{Name = "Flapper", ID = 123373225244443},
+{Name = "Floss", ID = 107287295776925},
+{Name = "Fly Dance", ID = 125627676172807},
+{Name = "Free Flow", ID = 101564911432113},
+{Name = "Friday Night", ID = 91741353599946},
+{Name = "Friday Funk", ID = 70835462045983},
+{Name = "Frozen Pizza", ID = 78457500452351},
+{Name = "Funky Jig", ID = 104720694407943},
+{Divider = true},  
+{Name = "Gangnam Style", ID = 109451974680631},
+{Name = "Garrys Dance", ID = 102655274160157},
+{Name = "Get Sturdy", ID = 77773358394206},
+{Name = "Get to the Top", ID = 93228901518812},
+{Name = "Goat Simulator", ID = 129327004786530},
+{Name = "Groovy", ID = 88997109090699},
+{Divider = true},  
+{Name = "HanSolo", ID = 84236497616039},
+{Name = "Heeltoe Hop", ID = 98256622649150},
+{Name = "Heeltoe Toprock", ID = 140670228658366},
+{Name = "Hiphop Hero", ID = 129871001094710},
+{Name = "HipShop", ID = 103112841595182},
+{Name = "HolIDay", ID = 85998810156809},
+{Divider = true},  
+{Name = "Infectious", ID = 103230323718650},
+{Name = "Insanity", ID = 139483347792972},
+{Name = "Its Complicated", ID = 78717948152747},
+{Divider = true},  
+{Name = "JayWalking", ID = 107833895457998, Speed = 0.85},
+{Name = "Jive", ID = 133324659811186, Speed = 0.75},
+{Name = "JumpStyle", ID = 115620519702324, Speed = 0.75},
+{Name = "Jumping Jacks", ID = 86279418149917},
+{Name = "Jung Justice", ID = 71723925114737},
+{Divider = true},  
+{Name = "Kalyx", ID = 137738597810830},
+{Name = "Kazotsky Kick", ID = 114036336168567},
+{Name = "KeepUp", ID = 84765927391240, Speed = 0.65},
+{Name = "Kombonk", ID = 88519824673842, Speed = 0.75},
+{Name = "KrabBorg", ID = 84670621089927},
+{Divider = true},  
+{Name = "Lagtrain", ID = 80764093560475},
+{Name = "Legal Reasons", ID = 78083829137149},
+{Name = "Lets Groove", ID = 109923692577857},
+{Name = "Little Big", ID = 78546390232203},
+{Name = "Lofi Headbang", ID = 84024656726416},
+{Name = "Love Hate", ID = 118446506171691},
+{Divider = true},  
+{Name = "Magnetic", ID = 91594002186875},
+{Name = "MannRobics", ID = 137456359844967},
+{Name = "MaxEffort", ID = 108526381474779},
+{Name = "Miku", ID = 82171050414030},
+{Name = "Million", ID = 109123683211464},
+{Name = "Mirage", ID = 108895956412207},
+{Name = "Mischiev Function", ID = 100305033962391, Speed = 0.95},
+{Divider = true},  
+{Name = "Neo", ID = 100305033962391},
+{Name = "Nerdy", ID = 136250600208499},
+{Name = "NewDonk", ID = 111542909088526},
+{Name = "New Jack Swingin", ID = 113494131456426},
+{Divider = true},  
+{Name = "Oddloop", ID = 95650849617284},
+{Name = "Oktober Aid", ID = 127865309658292},
+{Name = "Old School", ID = 115558885277292},
+{Name = "Outlaw", ID = 79048566727283},
+{Name = "OverDrive", ID = 118789281098407},
+{Divider = true},  
+{Name = "PonPon", ID = 109617660580282},
+{Name = "Party House", ID = 113030438875320},
+{Name = "Peanut Butter", ID = 85717017003584},
+{Name = "Pick it Up", ID = 106248669913767},
+{Name = "PoPiPo", ID = 115465103089127},
+{Name = "Pogo", ID = 109001339891602},
+{Name = "Pop and Lock", ID = 113869158054586},
+{Name = "PopLock", ID = 83789802032942},
+{Name = "Prince of Egypt", ID = 95986135548450},
+{Name = "Professional", ID = 117672863086140},
+{Divider = true},  
+{Name = "Rain Check", ID = 104145748528942},
+{Name = "Reanimated", ID = 135638372997121},
+{Name = "Reflex", ID = 104246452023047},
+{Name = "Reject Step", ID = 79440368381920},
+{Name = "Rewind", ID = 85595451831140},
+{Name = "RicFlair", ID = 77103786363593},
+{Name = "Ridin It", ID = 110739557877639},
+{Name = "Rodeo", ID = 139177767291866},
+{Name = "Royal Angst", ID = 101917046845862},
+{Name = "Running in Terror", ID = 82063943309833},
+{Divider = true},  
+{Name = "Scenario", ID = 105424478944256},
+{Name = "Sicko Mode", ID = 82639898531456},
+{Name = "Side Shuffle", ID = 106696831887022},
+{Name = "Sidestep", ID = 118256299900662},
+{Name = "Sit", ID = 77436653907705},
+{Name = "Slick", ID = 112642355788128},
+{Name = "Slow Down", ID = 96225967263351},
+{Name = "Smooth Slide", ID = 95051030054364},
+{Name = "SoarAbove", ID = 92031051557681, Speed = 0.75},
+{Name = "SpongeBob", ID = 107928348961439, Speed = 0.75},
+{Name = "SpringLoaded", ID = 126001082682364},
+{Name = "Springy", ID = 96915228320599},
+{Name = "Squash and Stretch", ID = 82430103452187},
+{Name = "Stock Shuffle", ID = 86067433847393},
+{Divider = true},  
+{Name = "TaiChi", ID = 139334740822475},
+{Name = "Texas Hoedown", ID = 130942516783083},
+{Name = "The Flop", ID = 122878040721056},
+{Name = "The MD", ID = 103541609182057},
+{Name = "The Roll", ID = 70422527184550},
+{Name = "Thriller", ID = 101170440834154},
+{Name = "Too Much Brain", ID = 71228444263749},
+{Name = "Tootsee Roll", ID = 102931874666964},
+{Name = "Top Rocking", ID = 116248187570378},
+{Name = "True Heart", ID = 139400505188520},
+{Name = "Turnt Up", ID = 95604282742916},
+{Divider = true},  
+{Name = "Walk Of Pride", ID = 137503210275698},
+{Name = "Wednesday", ID = 93029240528390},
+{Name = "Well Rounded", ID = 93832203745642},
+{Name = "Work It", ID = 140046429691095},
+{Divider = true},  
+{Name = "XO", ID = 73559770055600},
+{Divider = true},  
+{Name = "Zombeat", ID = 130481163326164},
+{Divider = true},  
+{Name = "Victory Sway", ID = 118331988473361},
+{Divider = true},  
+{Name = "ah yes", ID = 121084882913556},
+{Name = "expldoe", ID = 113901618647384},
+{Divider = true},  
+{Name = "Club Penguin 2", ID = 116538780276427},
+{Name = "Garry's Dance 2", ID = 116538780276427},
+{Name = "Goat Simulator 2", ID = 108846628611129},
+{Name = "PoPiPo 2", ID = 108846628611129},
+{Divider = true},  
+}
 
--- New code for draggable button
-local Player = game.Players.LocalPlayer
-local PlayerGui = Player:WaitForChild("PlayerGui")
+local Forsaken = {
+{Name = "Shucks", ID = 74238051754912},
+{Name = "Silly Billy", ID = 107464355830477},
+{Name = "Subterfuge", ID = 87482480949358},
+{Name = "Richard Watterson (the hero)", ID = 74012585744751},
+}
 
--- Create ScreenGui for the button
-local ButtonGui = Instance.new("ScreenGui")
-ButtonGui.Name = "HideGuiButton"
-ButtonGui.Parent = PlayerGui
-
--- Create the button
-local HideButton = Instance.new("TextButton")
-HideButton.Name = "HideGui"
-HideButton.Size = UDim2.new(0, 100, 0, 40) -- Adjust size as needed
-HideButton.Position = UDim2.new(0.05, 0, 0.05, 0) -- Initial position (top-left)
-HideButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-HideButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-HideButton.Text = "Hide Gui"
-HideButton.Font = Enum.Font.SourceSansBold
-HideButton.TextSize = 18
-HideButton.Draggable = true -- Enable built-in drag functionality for mobile
-HideButton.Parent = ButtonGui
-
--- Function to toggle GUI visibility
-local function toggleDisbeliefHub()
-    local disbeliefHub = PlayerGui:FindFirstChild("Disbelief Hub") -- Assuming the GUI is named "Disbelief Hub"
-    if disbeliefHub then
-        disbeliefHub.Enabled = not disbeliefHub.Enabled
-        if disbeliefHub.Enabled then
-            -- Center the GUI when shown
-            disbeliefHub.AbsolutePosition = Vector2.new(
-                (game.StudioService.ActiveViewport.X / 2) - (disbeliefHub.AbsoluteSize.X / 2),
-                (game.StudioService.ActiveViewport.Y / 2) - (disbeliefHub.AbsoluteSize.Y / 2)
-            )
-        end
-    end
+for i, v in pairs(Forsaken) do
+if v.Divider then
+DancesB:Line()
+else
+DancesB:Button(v.Name, v.Name, function()
+if not Anims:FindFirstChild(v.Name) then
+CreateAnimation(v.Name, v.ID)
+end
+PlayAnim(Character, Anims[v.Name], 0, v.Speed or 1)
+end)
+end
 end
 
--- Connect button click to toggle function
-HideButton.MouseButton1Click:Connect(toggleDisbeliefHub)
+for i, v in pairs(R6Dances) do
+if v.Divider then
+DancesA:Line()
+else
+DancesA:Button(v.Name, v.Name, function()
+if not Anims:FindFirstChild(v.Name) then
+CreateAnimation(v.Name, v.ID)
+end
+PlayAnim(Character, Anims[v.Name], 0, v.Speed or 1)
+end)
+end
+end
+
+CreateAnimation("Idle", 136078657506707)
+CreateAnimation("Walk", 130213485744288)
+CreateAnimation("Jump", 84397577392351)
+CreateAnimation("Fall", 90270295182351)
+
+game:GetService("RunService").Heartbeat:Connect(function()
+for i,v in pairs(Character:FindFirstChildOfClass("Humanoid"):GetPlayingAnimationTracks()) do
+v:Stop(0)
+end
+local HitFloor,HitPosition = Raycast(RootPart.Position, (CFrame.new(RootPart.Position, RootPart.Position + Vector3.new(0, -1, 0))).LookVector, 4, Character)
+TorsoVelocity = (RootPart.Velocity).Magnitude
+TorsoVerticalVelocity = RootPart.Velocity.Y
+if TorsoVerticalVelocity > 1 and HitFloor == nil then
+if Jumped == false then
+Jumped = true
+PlayAnim(Character, Anims.Jump, 0.1, 1)
+end
+Falled = false
+Idled = false
+Walked = false
+StopAnim(Character, Anims.Fall)
+StopAnim(Character, Anims.Idle)
+StopAnim(Character, Anims.Walk)
+elseif TorsoVerticalVelocity < 1 and HitFloor == nil then
+if Falled == false then
+Falled = true
+PlayAnim(Character, Anims.Fall, 0.1, 1)
+end		
+Jumped = false
+Idled = false
+Walked = false
+StopAnim(Character, Anims.Jump)
+StopAnim(Character, Anims.Idle)
+StopAnim(Character, Anims.Walk)
+elseif TorsoVelocity < 1 and HitFloor ~= nil then
+if Idled == false then
+Idled = true
+PlayAnim(Character, Anims.Idle, 0.1, 0.1)
+end
+Jumped = false
+Falled = false
+Walked = false
+StopAnim(Character, Anims.Jump)
+StopAnim(Character, Anims.Fall)
+StopAnim(Character, Anims.Walk)
+elseif TorsoVelocity > 1 and HitFloor ~= nil then
+if Walked == false then
+Walked = true
+PlayAnim(Character, Anims.Walk,0.1,1)
+end
+Jumped = false
+Falled = false
+Idled = false
+StopAnim(Character, Anims.Jump)
+StopAnim(Character, Anims.Fall)
+StopAnim(Character, Anims.Idle)
+end
+end)
+
+
+warn[[
+Tapping microphone "Hello?, helloooo?? Is this thing on?" —static crackles- “Ah, there we go. Ladies and gentlemen! Welcome to the hit show 'No One Can Prove Melon Is A Skid!' Fasten your seat belts; what you’re about to hear could turn the world upside down.
+“For our first guest today, we have…uh –wait, what was the name again?” —shuffling papers— "Ah, yes! The respected keyboard warrior who genuinely thinks they have discovered the biggest scandal in the world of scripting! Tell us sir, what revolutionary evidence that you have today?
+—awkward silence— "Oh? Nothing? No proof? Just vibes? Fascinating. Truly groundbreaking investigative work."
+So, people, here you go. Another ‘Baseless Accusations & Keyboard Rage!‘ episode. Stay tuned because we are heading straight into the mind-blowing world of ‘People Who Think Copy-Pasting a GitHub Repo Makes Them Elite Hackers!”
+—applause track plays – Until next time!
+]]
+
+
+
+-- Register the Run animation
+CreateAnimation("Run", 98913971068661)
+
+-- Track run state
+local isRunning = false
+local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+
+-- Persistent GUI for Run Toggle
+local function createRunToggleUI()
+    if game.CoreGui:FindFirstChild("RunToggleUI") then
+        game.CoreGui.RunToggleUI:Destroy()
+    end
+
+    local RunToggleUI = Instance.new("ScreenGui")
+    RunToggleUI.Name = "RunToggleUI"
+    RunToggleUI.ResetOnSpawn = false
+    RunToggleUI.Parent = game.CoreGui
+
+    local RunButton = Instance.new("TextButton")
+    RunButton.Size = UDim2.new(0, 100, 0, 40)
+    RunButton.Position = UDim2.new(0, 20, 0.5, 0)
+    RunButton.Text = "Run"
+    RunButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    RunButton.TextColor3 = Color3.new(1, 1, 1)
+    RunButton.Font = Enum.Font.GothamBold
+    RunButton.TextSize = 18
+    RunButton.Draggable = true
+    RunButton.Active = true
+    RunButton.Parent = RunToggleUI
+
+    RunButton.MouseButton1Click:Connect(function()
+        isRunning = not isRunning
+        RunButton.Text = isRunning and "Walk" or "Run"
+        Humanoid.WalkSpeed = isRunning and 30 or 16
+    end)
+end
+
+createRunToggleUI()
+
+-- Modify heartbeat to play run animation only during movement if run mode is enabled
+game:GetService("RunService").Heartbeat:Connect(function()
+    for _, v in pairs(Humanoid:GetPlayingAnimationTracks()) do
+        v:Stop(0)
+    end
+
+    local HitFloor = Raycast(RootPart.Position, Vector3.new(0, -1, 0), 4, Character)
+    local TorsoVelocity = RootPart.Velocity.Magnitude
+    local TorsoVerticalVelocity = RootPart.Velocity.Y
+
+    if TorsoVerticalVelocity > 1 and not HitFloor then
+        if not Jumped then
+            Jumped = true
+            PlayAnim(Character, Anims.Jump, 0.1, 1)
+        end
+        Falled, Idled, Walked = false, false, false
+    elseif TorsoVerticalVelocity < 1 and not HitFloor then
+        if not Falled then
+            Falled = true
+            PlayAnim(Character, Anims.Fall, 0.1, 1)
+        end
+        Jumped, Idled, Walked = false, false, false
+    elseif TorsoVelocity < 1 and HitFloor then
+        if not Idled then
+            Idled = true
+            PlayAnim(Character, Anims.Idle, 0.1, 0.1)
+        end
+        Jumped, Falled, Walked = false, false, false
+    elseif TorsoVelocity > 1 and HitFloor then
+        if isRunning then
+            if not Walked then
+                Walked = true
+                PlayAnim(Character, Anims.Run, 0.1, 1)
+            end
+        else
+            if not Walked then
+                Walked = true
+                PlayAnim(Character, Anims.Walk, 0.1, 1)
+            end
+        end
+        Jumped, Falled, Idled = false, false, false
+    end
+end)
