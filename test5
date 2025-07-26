@@ -474,7 +474,7 @@ local Forsaken = {
 {Name = "Richard Watterson (the hero)", ID = 74012585744751},
 {Name = "Immaterial", ID = 90127032448242},
 {Name = "Run away", ID = 131562546189485},
-{Name = "Indian dance", ID = 127543751398328},
+{Name = "Run away V2", ID = 95169538787696},
 {Name = "Headlock", ID = 97992194141034},
 {Name = "Gangdance", ID = 121267065315946},
 {Name = "Bluelock", ID = 76975616044095},
