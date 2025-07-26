@@ -788,3 +788,51 @@ ToggleButton.MouseButton1Click:Connect(function()
 end)
 
 
+-- 🧷 UNIVERSAL RIG STABILIZER + NETLESS (Anti-Jitter for Hatless, Emperyean, Krypton)
+task.delay(2, function()
+    local player = game.Players.LocalPlayer
+    local rig = workspace:FindFirstChild(player.Name)
+    if not rig then return end
+
+    -- 1. Disable physics, collisions, and reset unwanted motion
+    for _, part in pairs(rig:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.Anchored = false
+            part.CanCollide = false
+            part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+            part.AssemblyLinearVelocity = Vector3.zero
+            part.AssemblyAngularVelocity = Vector3.zero
+        end
+    end
+
+    -- 2. Enable all Motor6Ds and refresh their joints
+    for _, m in pairs(rig:GetDescendants()) do
+        if m:IsA("Motor6D") then
+            m.Enabled = true
+            m.C0 = m.C0 * CFrame.new(0.001, 0, 0) -- slight bump to reset
+        end
+    end
+
+    -- 3. Optional: Realign hats (for Emperyean/Krypton stability)
+    for _, acc in pairs(rig:GetChildren()) do
+        if acc:IsA("Accessory") and acc:FindFirstChild("Handle") then
+            acc.Handle.CanCollide = false
+            acc.Handle.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+        end
+    end
+
+    -- 4. Apply smooth netless to all BaseParts
+    task.spawn(function()
+        while rig and rig.Parent do
+            for _, p in pairs(rig:GetDescendants()) do
+                if p:IsA("BasePart") and not p.Anchored then
+                    p.Velocity = Vector3.new(35, 0, 0) -- smooth netless
+                end
+            end
+            task.wait(0.1) -- safe interval to avoid flickering
+        end
+    end)
+end)
+
+
+
