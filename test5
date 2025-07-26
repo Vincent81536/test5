@@ -244,7 +244,7 @@ if game.CoreGui:FindFirstChild("FluxLib") then
 game.CoreGui:FindFirstChild("FluxLib"):Destroy()
 end
 
-local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/fluxlib.txt"))()
+local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Vincent81536/hub/main/hubtest"))()
 local GUI = Lib:Window("Disbelief Hub", "Irony at its finest.", Color3.fromRGB(0, 0, 0), Enum.KeyCode.LeftControl)
 -- ⬇️ Center GUI when it spawns
 task.delay(0.5, function()
@@ -838,73 +838,3 @@ task.delay(2, function()
         end)
     end
 end)
-
--- 🔁 Safe, re-spawn aware, draggable GUI toggle
-do
-    local Players = game:GetService("Players")
-    local LP = Players.LocalPlayer
-
-    -- Nuke any previous instance
-    local old = game.CoreGui:FindFirstChild("MinimizeDisbeliefHub")
-    if old then old:Destroy() end
-
-    local function centerFlux()
-        local Flux = game.CoreGui:FindFirstChild("FluxLib")
-        if Flux and Flux:FindFirstChild("Main") then
-            local main = Flux.Main
-            main.Position = UDim2.new(0.5, -main.Size.X.Offset/2, 0.5, -main.Size.Y.Offset/2)
-        end
-    end
-
-    local MiniBox = Instance.new("ScreenGui")
-    MiniBox.Name = "MinimizeDisbeliefHub"
-    MiniBox.ResetOnSpawn = false
-    MiniBox.Parent = game.CoreGui
-
-    local ToggleButton = Instance.new("TextButton")
-    ToggleButton.Name = "ToggleButton"
-    ToggleButton.Text = "GUI"
-    ToggleButton.Size = UDim2.new(0, 60, 0, 30)
-    ToggleButton.Position = UDim2.new(0, 10, 0.5, 0)
-    ToggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    ToggleButton.TextColor3 = Color3.new(1, 1, 1)
-    ToggleButton.Font = Enum.Font.GothamBold
-    ToggleButton.TextSize = 18
-    ToggleButton.Draggable = true
-    ToggleButton.Active = true
-    ToggleButton.Parent = MiniBox
-
-    local function hookHumanoid(hum)
-        if not hum then return end
-        hum.Died:Connect(function()
-            -- Hide everything on death
-            MiniBox.Enabled = false
-            local Flux = game.CoreGui:FindFirstChild("FluxLib")
-            if Flux then
-                Flux.Enabled = false
-            end
-        end)
-    end
-
-    -- Click => toggle Flux GUI + recenter when shown
-    ToggleButton.MouseButton1Click:Connect(function()
-        local Flux = game.CoreGui:FindFirstChild("FluxLib")
-        if Flux then
-            Flux.Enabled = not Flux.Enabled
-            if Flux.Enabled then
-                centerFlux()
-            end
-        end
-    end)
-
-    -- Initial death hook
-    local char = LP.Character or LP.CharacterAdded:Wait()
-    hookHumanoid(char:FindFirstChildOfClass("Humanoid"))
-
-    -- On respawn, bring the button back & rehook, and recenter Flux
-    LP.CharacterAdded:Connect(function(newChar)
-        MiniBox.Enabled = true               -- show the toggle again
-        task.defer(centerFlux)               -- recentre Flux a frame later
-        hookHumanoid(newChar:WaitForChild("Humanoid"))
-    end)
-end
