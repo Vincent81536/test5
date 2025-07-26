@@ -239,29 +239,6 @@ end
 
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/fluxlib.txt"))()
 local GUI = Lib:Window("Disbelief Hub", "Irony at its finest.", Color3.fromRGB(0, 0, 0), Enum.KeyCode.LeftControl)
-
--- Add a new tab for GUI control
-local GuiControlTab = GUI:Tab("GUI Control", "http://www.roblox.com/asset/?id=6023426915") -- You can change the asset ID for the tab icon
-
--- Add the button to the new tab for toggling GUI visibility and recentering
-GuiControlTab:Button("Toggle GUI Visibility", function()
-    -- Check if GUI.MainGui exists before trying to access its properties
-    if GUI.MainGui then
-        GUI.MainGui.Visible = not GUI.MainGui.Visible
-        if GUI.MainGui.Visible then
-            -- Recenter the GUI when it becomes visible
-            local screenX = game.CoreGui.AbsoluteSize.X
-            local screenY = game.CoreGui.AbsoluteSize.Y
-            local guiX = GUI.MainGui.AbsoluteSize.X
-            local guiY = GUI.MainGui.AbsoluteSize.Y
-
-            GUI.MainGui.Position = UDim2.new(0.5, -guiX/2, 0.5, -guiY/2)
-        end
-    else
-        warn("GUI.MainGui not found. Cannot toggle or recenter GUI.")
-    end
-end)
-
 local DancesA = GUI:Tab("Animations - R6 Dances", "http://www.roblox.com/asset/?id=6023426915")
 local DancesB = GUI:Tab("Animations - Forsaken", "http://www.roblox.com/asset/?id=6023426915")
 
@@ -330,7 +307,7 @@ local R6Dances = {
 {Name = "Crank Dat", ID = 139148388599834},
 {Name = "Cyber Bop", ID = 129655276640546},
 {Name = "CupCakes", ID = 117125226382337},
-{Divider = true},
+{Divider = true},  
 {Name = "Direction Directive", ID = 100131309856257},
 {Name = "Domino", ID = 126683576461381, Speed = 0.75},
 {Name = "Doodle", ID = 90069083924245, Speed = 0.75},
@@ -341,486 +318,360 @@ local R6Dances = {
 {Name = "Drip", ID = 100177280567649, Speed = 0.75},
 {Name = "Drum Major", ID = 116369780386936},
 {Name = "Dynamic Shuffle", ID = 78337295886429},
-{Divider = true},
+{Divider = true},  
 {Name = "Electro Shuffle", ID = 136684924748195},
 {Name = "Electro Swing", ID = 93684150668786},
 {Name = "Entranced", ID = 131726076631029},
-{Divider = true},
-{Name = "Fein", ID = 112117163073046},
-{Name = "Finesse", ID = 139148405898144},
-{Name = "Fling", ID = 125134707835105},
-{Name = "Flipping", ID = 92534571994848},
-{Name = "Flipping (Slow)", ID = 92534571994848, Speed = 0.75},
-{Name = "Floss", ID = 77134017262796},
-{Name = "Freestyle", ID = 129690192535974},
-{Name = "Funk", ID = 93170660505618},
-{Name = "Funky", ID = 94819139632832},
-{Divider = true},
-{Name = "Gangnam Style", ID = 80495107024340},
-{Name = "Get Down", ID = 126580970716630},
-{Name = "Get Right", ID = 125079877993376},
-{Name = "GetUp", ID = 138112012258643},
-{Name = "Goku Dance", ID = 126683576461381},
-{Name = "Griddy", ID = 100131309856257},
-{Name = "Groove", ID = 100643285137768},
-{Name = "Gun Pose", ID = 75405139558088},
-{Name = "Goofy", ID = 90069083924245},
-{Divider = true},
-{Name = "Hype", ID = 118311613925473},
-{Name = "HitDemFolks", ID = 132280062505986},
-{Name = "Hot", ID = 116614992219971},
-{Name = "House", ID = 115557579308566},
-{Name = "How You Feel", ID = 105174222033892},
-{Divider = true},
-{Name = "I'm a Gummy Bear", ID = 133188222109902},
-{Name = "Imma", ID = 139148388599834},
-{Name = "Imma (Slow)", ID = 139148388599834, Speed = 0.75},
-{Name = "In My Feelings", ID = 129655276640546},
-{Name = "In the End", ID = 117125226382337},
-{Divider = true},
-{Name = "Jiggy", ID = 100177280567649},
-{Name = "Jiggle", ID = 116369780386936},
-{Name = "Jungle", ID = 78337295886429},
-{Divider = true},
-{Name = "Kick", ID = 136684924748195},
-{Name = "Koto", ID = 93684150668786},
-{Name = "Kriss Kross", ID = 131726076631029},
-{Divider = true},
-{Name = "Leaf", ID = 112117163073046},
-{Name = "Lean", ID = 139148405898144},
-{Name = "Lemonade", ID = 125134707835105},
-{Name = "Let's Go", ID = 92534571994848},
-{Name = "Lift Off", ID = 77134017262796},
-{Name = "Like That", ID = 129690192535974},
-{Name = "Liquid", ID = 93170660505618},
-{Name = "Loosing It", ID = 94819139632832},
-{Name = "Loom", ID = 80495107024340},
-{Name = "Lumberjack", ID = 126580970716630},
-{Name = "Lyrical", ID = 125079877993376},
-{Divider = true},
-{Name = "M", ID = 138112012258643},
-{Name = "Make It", ID = 100131309856257},
-{Name = "Make It Rain", ID = 100643285137768},
-{Name = "Make Me", ID = 89761302048916},
-{Name = "Make Me Proud", ID = 93170660505618},
-{Name = "Man's Not Hot", ID = 116614992219971},
-{Name = "Mask Off", ID = 115557579308566},
-{Name = "Me and My Kicks", ID = 105174222033892},
-{Name = "Milly Rock", ID = 133188222109902},
-{Name = "Mind", ID = 139148388599834},
-{Name = "Mi Gente", ID = 129655276640546},
-{Name = "Misery", ID = 117125226382337},
-{Name = "Mix", ID = 100177280567649},
-{Name = "MoonWalk", ID = 116369780386936},
-{Name = "Mosh", ID = 78337295886429},
-{Name = "Move It", ID = 136684924748195},
-{Name = "Move Your Body", ID = 93684150668786},
-{Name = "Mr. Krabs", ID = 131726076631029},
-{Divider = true},
-{Name = "Nae Nae", ID = 112117163073046},
-{Name = "Nasty", ID = 139148405898144},
-{Name = "New Thang", ID = 125134707835105},
-{Name = "New York", ID = 92534571994848},
-{Name = "No Limit", ID = 77134017262796},
-{Name = "No Stylist", ID = 129690192535974},
-{Name = "Nod", ID = 93170660505618},
-{Name = "Numb", ID = 94819139632832},
-{Divider = true},
-{Name = "Oh", ID = 80495107024340},
-{Name = "Old Town Road", ID = 126580970716630},
-{Name = "On My Way", ID = 125079877993376},
-{Name = "One Dance", ID = 138112012258643},
-{Name = "Open", ID = 100131309856257},
-{Name = "Outta My Mind", ID = 100643285137768},
-{Name = "Over It", ID = 89761302048916},
-{Divider = true},
-{Name = "Party", ID = 93170660505618},
-{Name = "Party Rock Anthem", ID = 116614992219971},
-{Name = "Peanut Butter Jelly Time", ID = 115557579308566},
-{Name = "Pick It Up", ID = 105174222033892},
-{Name = "Pop", ID = 133188222109902},
-{Name = "Poppin'", ID = 139148388599834},
-{Name = "Pose", ID = 129655276640546},
-{Name = "Push It", ID = 117125226382337},
-{Name = "Push Up", ID = 100177280567649},
-{Divider = true},
-{Name = "Quirk", ID = 116369780386936},
-{Divider = true},
-{Name = "Rage", ID = 78337295886429},
-{Name = "Raise Up", ID = 136684924748195},
-{Name = "Rattle", ID = 93684150668786},
-{Name = "Redbone", ID = 131726076631029},
-{Name = "Renegade", ID = 112117163073046},
-{Name = "Reload", ID = 139148405898144},
-{Name = "Ride", ID = 125134707835105},
-{Name = "Right Now", ID = 92534571994848},
-{Name = "Rock", ID = 77134017262796},
-{Name = "Roll", ID = 129690192535974},
-{Name = "Rollie", ID = 93170660505618},
-{Name = "Rotation", ID = 94819139632832},
-{Name = "Run", ID = 80495107024340},
-{Divider = true},
-{Name = "Savage", ID = 126580970716630},
-{Name = "Say So", ID = 125079877993376},
-{Name = "Shake", ID = 138112012258643},
-{Name = "Shimmy", ID = 100131309856257},
-{Name = "Shoot", ID = 100643285137768},
-{Name = "Shy", ID = 89761302048916},
-{Name = "Side to Side", ID = 93170660505618},
-{Name = "Sleigh Ride", ID = 116614992219971},
-{Name = "Slide", ID = 115557579308566},
-{Name = "Slow Motion", ID = 105174222033892},
-{Name = "Smooth Criminal", ID = 133188222109902},
-{Name = "Snap", ID = 139148388599834},
-{Name = "Solo", ID = 129655276640546},
-{Name = "Spin", ID = 117125226382337},
-{Name = "Stomp", ID = 100177280567649},
-{Name = "Stutter", ID = 116369780386936},
-{Name = "Suave", ID = 78337295886429},
-{Name = "Swing", ID = 136684924748195},
-{Divider = true},
-{Name = "Taki Taki", ID = 93684150668786},
-{Name = "Tap", ID = 131726076631029},
-{Name = "Teach Me How to Dougie", ID = 112117163073046},
-{Name = "Tear Drop", ID = 139148405898144},
-{Name = "Techno", ID = 125134707835105},
-{Name = "The Floss", ID = 92534571994848},
-{Name = "The Git Up", ID = 77134017262796},
-{Name = "The Woah", ID = 129690192535974},
-{Name = "Thriller", ID = 93170660505618},
-{Name = "Tik Tok", ID = 94819139632832},
-{Name = "Time Warp", ID = 80495107024340},
-{Name = "Too Lit", ID = 126580970716630},
-{Name = "Twerk", ID = 125079877993376},
-{Divider = true},
-{Name = "Up", ID = 138112012258643},
-{Name = "Uptown Funk", ID = 100131309856257},
-{Divider = true},
-{Name = "Vogue", ID = 100643285137768},
-{Divider = true},
-{Name = "Walk It Talk It", ID = 89761302048916},
-{Name = "Whip", ID = 93170660505618},
-{Name = "Wipe Out", ID = 116614992219971},
-{Name = "Woah", ID = 115557579308566},
-{Name = "Wobble", ID = 105174222033892},
-{Divider = true},
-{Name = "YMCA", ID = 133188222109902},
-{Divider = true},
-{Name = "Zanku", ID = 139148388599834},
+{Divider = true},  
+{Name = "Fein", ID = 115727639577589},
+{Name = "Flamenco", ID = 112606613683393},
+{Name = "Flapper", ID = 123373225244443},
+{Name = "Floss", ID = 107287295776925},
+{Name = "Fly Dance", ID = 125627676172807},
+{Name = "Free Flow", ID = 101564911432113},
+{Name = "Friday Night", ID = 91741353599946},
+{Name = "Friday Funk", ID = 70835462045983},
+{Name = "Frozen Pizza", ID = 78457500452351},
+{Name = "Funky Jig", ID = 104720694407943},
+{Divider = true},  
+{Name = "Gangnam Style", ID = 109451974680631},
+{Name = "Garrys Dance", ID = 102655274160157},
+{Name = "Get Sturdy", ID = 77773358394206},
+{Name = "Get to the Top", ID = 93228901518812},
+{Name = "Goat Simulator", ID = 129327004786530},
+{Name = "Groovy", ID = 88997109090699},
+{Divider = true},  
+{Name = "HanSolo", ID = 84236497616039},
+{Name = "Heeltoe Hop", ID = 98256622649150},
+{Name = "Heeltoe Toprock", ID = 140670228658366},
+{Name = "Hiphop Hero", ID = 129871001094710},
+{Name = "HipShop", ID = 103112841595182},
+{Name = "HolIDay", ID = 85998810156809},
+{Divider = true},  
+{Name = "Infectious", ID = 103230323718650},
+{Name = "Insanity", ID = 139483347792972},
+{Name = "Its Complicated", ID = 78717948152747},
+{Divider = true},  
+{Name = "JayWalking", ID = 107833895457998, Speed = 0.85},
+{Name = "Jive", ID = 133324659811186, Speed = 0.75},
+{Name = "JumpStyle", ID = 115620519702324, Speed = 0.75},
+{Name = "Jumping Jacks", ID = 86279418149917},
+{Name = "Jung Justice", ID = 71723925114737},
+{Divider = true},  
+{Name = "Kalyx", ID = 137738597810830},
+{Name = "Kazotsky Kick", ID = 114036336168567},
+{Name = "KeepUp", ID = 84765927391240, Speed = 0.65},
+{Name = "Kombonk", ID = 88519824673842, Speed = 0.75},
+{Name = "KrabBorg", ID = 84670621089927},
+{Divider = true},  
+{Name = "Lagtrain", ID = 80764093560475},
+{Name = "Legal Reasons", ID = 78083829137149},
+{Name = "Lets Groove", ID = 109923692577857},
+{Name = "Little Big", ID = 78546390232203},
+{Name = "Lofi Headbang", ID = 84024656726416},
+{Name = "Love Hate", ID = 118446506171691},
+{Divider = true},  
+{Name = "Magnetic", ID = 91594002186875},
+{Name = "MannRobics", ID = 137456359844967},
+{Name = "MaxEffort", ID = 108526381474779},
+{Name = "Miku", ID = 82171050414030},
+{Name = "Million", ID = 109123683211464},
+{Name = "Mirage", ID = 108895956412207},
+{Name = "Mischiev Function", ID = 100305033962391, Speed = 0.95},
+{Divider = true},  
+{Name = "Neo", ID = 100305033962391},
+{Name = "Nerdy", ID = 136250600208499},
+{Name = "NewDonk", ID = 111542909088526},
+{Name = "New Jack Swingin", ID = 113494131456426},
+{Divider = true},  
+{Name = "Oddloop", ID = 95650849617284},
+{Name = "Oktober Aid", ID = 127865309658292},
+{Name = "Old School", ID = 115558885277292},
+{Name = "Outlaw", ID = 79048566727283},
+{Name = "OverDrive", ID = 118789281098407},
+{Divider = true},  
+{Name = "PonPon", ID = 109617660580282},
+{Name = "Party House", ID = 113030438875320},
+{Name = "Peanut Butter", ID = 85717017003584},
+{Name = "Pick it Up", ID = 106248669913767},
+{Name = "PoPiPo", ID = 115465103089127},
+{Name = "Pogo", ID = 109001339891602},
+{Name = "Pop and Lock", ID = 113869158054586},
+{Name = "PopLock", ID = 83789802032942},
+{Name = "Prince of Egypt", ID = 95986135548450},
+{Name = "Professional", ID = 117672863086140},
+{Divider = true},  
+{Name = "Rain Check", ID = 104145748528942},
+{Name = "Reanimated", ID = 135638372997121},
+{Name = "Reflex", ID = 104246452023047},
+{Name = "Reject Step", ID = 79440368381920},
+{Name = "Rewind", ID = 85595451831140},
+{Name = "RicFlair", ID = 77103786363593},
+{Name = "Ridin It", ID = 110739557877639},
+{Name = "Rodeo", ID = 139177767291866},
+{Name = "Royal Angst", ID = 101917046845862},
+{Name = "Running in Terror", ID = 82063943309833},
+{Divider = true},  
+{Name = "Scenario", ID = 105424478944256},
+{Name = "Sicko Mode", ID = 82639898531456},
+{Name = "Side Shuffle", ID = 106696831887022},
+{Name = "Sidestep", ID = 118256299900662},
+{Name = "Sit", ID = 77436653907705},
+{Name = "Slick", ID = 112642355788128},
+{Name = "Slow Down", ID = 96225967263351},
+{Name = "Smooth Slide", ID = 95051030054364},
+{Name = "SoarAbove", ID = 92031051557681, Speed = 0.75},
+{Name = "SpongeBob", ID = 107928348961439, Speed = 0.75},
+{Name = "SpringLoaded", ID = 126001082682364},
+{Name = "Springy", ID = 96915228320599},
+{Name = "Squash and Stretch", ID = 82430103452187},
+{Name = "Stock Shuffle", ID = 86067433847393},
+{Divider = true},  
+{Name = "TaiChi", ID = 139334740822475},
+{Name = "Texas Hoedown", ID = 130942516783083},
+{Name = "The Flop", ID = 122878040721056},
+{Name = "The MD", ID = 103541609182057},
+{Name = "The Roll", ID = 70422527184550},
+{Name = "Thriller", ID = 101170440834154},
+{Name = "Too Much Brain", ID = 71228444263749},
+{Name = "Tootsee Roll", ID = 102931874666964},
+{Name = "Top Rocking", ID = 116248187570378},
+{Name = "True Heart", ID = 139400505188520},
+{Name = "Turnt Up", ID = 95604282742916},
+{Divider = true},  
+{Name = "Walk Of Pride", ID = 137503210275698},
+{Name = "Wednesday", ID = 93029240528390},
+{Name = "Well Rounded", ID = 93832203745642},
+{Name = "Work It", ID = 140046429691095},
+{Divider = true},  
+{Name = "XO", ID = 73559770055600},
+{Divider = true},  
+{Name = "Zombeat", ID = 130481163326164},
+{Divider = true},  
+{Name = "Victory Sway", ID = 118331988473361},
+{Divider = true},  
+{Name = "ah yes", ID = 121084882913556},
+{Name = "expldoe", ID = 113901618647384},
+{Divider = true},  
+{Name = "Club Penguin 2", ID = 116538780276427},
+{Name = "Garry's Dance 2", ID = 116538780276427},
+{Name = "Goat Simulator 2", ID = 108846628611129},
+{Name = "PoPiPo 2", ID = 108846628611129},
+{Divider = true},  
 }
-
-for i,v in next, R6Dances do
-    if v.Divider == true then
-        DancesA:Divider()
-    else
-        DancesA:Button(v.Name, function()
-            CreateAnimation(v.Name, v.ID)
-            PlayAnim(Character, Anims[v.Name], 0.1, v.Speed or 1) -- Add speed parameter
-            if v.SoundID then
-                local Sound = Instance.new("Sound", workspace)
-                Sound.SoundId = "rbxassetid://"..v.SoundID
-                Sound:Play()
-                Sound.Ended:Connect(function()
-                    Sound:Destroy()
-                end)
-            end
-        end)
-    end
-end
-
 
 local Forsaken = {
-{Name = "Boombox Dance", ID = 84471848998012, SoundID = 1839931160},
-{Divider = true},  
-{Name = "Cafeteria", ID = 111079857314277},
-{Name = "Swag Surfin'", ID = 88245814842699},
-{Name = "Trinidad", ID = 125079877993376},
-{Name = "Rat Dance", ID = 98260902889120},
-{Name = "Internet Yamero", ID = 99905571448278},
-{Name = "Two", ID = 137845929482571},
-{Name = "Hakari", ID = 92699725136780},
-{Name = "Hakari V2", ID = 139107159497423, Speed = 3},
-{Name = "Heavy Love", ID = 85856686932206},
-{Name = "Oh Who Is You", ID = 80777442674443},
-{Name = "BHop", ID = 82234401429055},
-{Name = "Boomin'", ID = 135207682507735},
-{Name = "Carbohydrate Craving", ID = 77887053847258},
-{Name = "Criss Cross Toprock", ID = 73116243097694},
-{Name = "Deep Fried Desire", ID = 127846780529069},
-{Name = "Downtown Funk", ID = 103059790868580},
-{Name = "Dragon of Dojima", ID = 79052669998148},
-{Name = "Fighter Stance", ID = 118865990558686},
-{Name = "Hot Springs", ID = 134527716461262},
-{Name = "Kombonk", ID = 88519824673842},
-{Name = "PoPiPo Extended", ID = 115465103089127},
-{Name = "Rage", ID = 97891561277088},
-{Name = "Shadow Dash", ID = 126495344868322},
-{Name = "Star Striker", ID = 126271443897103},
-{Name = "Survivalist", ID = 74820723472974},
-{Divider = true},  
-{Name = "Appendum", ID = 77926650795117},
-{Name = "Attitude", ID = 129169655004423},
-{Divider = true},  
-{Name = "Bill", ID = 120460931637912},
-{Name = "Billie Jean", ID = 108805310510119},
-{Name = "Billy Bounce", ID = 125962207089467},
-{Name = "Bit Crushing", ID = 135845625327739},
-{Name = "Black and Yellow", ID = 132028118802766},
-{Name = "Blinding Lights", ID = 83245497290837},
-{Name = "BloodPop", ID = 132026285699359},
-{Name = "Bomb Monkey", ID = 75616586799217},
-{Name = "Boogie", ID = 125356421399032},
-{Name = "Boogie Bomb", ID = 114817849347144},
-{Name = "Boogie Down", ID = 77558722177080, Speed = 0.85},
-{Name = "Boomin'", ID = 135207682507735},
-{Name = "Box Swing", ID = 75405139558088, Speed = 0.75},
-{Name = "BreakDance", ID = 132886479585903},
-{Name = "BreakDance 2005", ID = 131296257768627},
-{Name = "Break Down", ID = 100568904650591},
-{Name = "Breakin", ID = 131155721688011},
-{Name = "Bullet Dodge Ballet", ID = 98779400840597},
-{Divider = true},  
-{Name = "Calamity", ID = 102026644002108},
-{Name = "Caramelldansen", ID = 103597509139287},
-{Name = "ChaseMe", ID = 118311613925473},
-{Name = "Check", ID = 132280062505986},
-{Name = "Chicken Dinner", ID = 100643285137768},
-{Name = "Club Penguin", ID = 89761302048916},
-{Name = "Colossal", ID = 93170660505618},
-{Name = "Company Jig", ID = 116614992219971},
-{Name = "Conga", ID = 115557579308566},
-{Name = "Continental Drift", ID = 105174222033892},
-{Name = "CrackDown", ID = 133188222109902},
-{Name = "Crank Dat", ID = 139148388599834},
-{Name = "Cyber Bop", ID = 129655276640546},
-{Name = "CupCakes", ID = 117125226382337},
-{Divider = true},
-{Name = "Direction Directive", ID = 100131309856257},
-{Name = "Domino", ID = 126683576461381, Speed = 0.75},
-{Name = "Doodle", ID = 90069083924245, Speed = 0.75},
-{Name = "Doom MCBringer", ID = 123386245117713},
-{Name = "Double Step", ID = 138112012258643},
-{Name = "Downtown Funk", ID = 103059790868580},
-{Name = "Dragon Dance", ID = 75687257387850, Speed = 0.75},
-{Name = "Drip", ID = 100177280567649, Speed = 0.75},
-{Name = "Drum Major", ID = 116369780386936},
-{Name = "Dynamic Shuffle", ID = 78337295886429},
-{Divider = true},
-{Name = "Electro Shuffle", ID = 136684924748195},
-{Name = "Electro Swing", ID = 93684150668786},
-{Name = "Entranced", ID = 131726076631029},
-{Divider = true},
-{Name = "Fein", ID = 112117163073046},
-{Name = "Finesse", ID = 139148405898144},
-{Name = "Fling", ID = 125134707835105},
-{Name = "Flipping", ID = 92534571994848},
-{Name = "Flipping (Slow)", ID = 92534571994848, Speed = 0.75},
-{Name = "Floss", ID = 77134017262796},
-{Name = "Freestyle", ID = 129690192535974},
-{Name = "Funk", ID = 93170660505618},
-{Name = "Funky", ID = 94819139632832},
-{Divider = true},
-{Name = "Gangnam Style", ID = 80495107024340},
-{Name = "Get Down", ID = 126580970716630},
-{Name = "Get Right", ID = 125079877993376},
-{Name = "GetUp", ID = 138112012258643},
-{Name = "Goku Dance", ID = 126683576461381},
-{Name = "Griddy", ID = 100131309856257},
-{Name = "Groove", ID = 100643285137768},
-{Name = "Gun Pose", ID = 75405139558088},
-{Name = "Goofy", ID = 90069083924245},
-{Divider = true},
-{Name = "Hype", ID = 118311613925473},
-{Name = "HitDemFolks", ID = 132280062505986},
-{Name = "Hot", ID = 116614992219971},
-{Name = "House", ID = 115557579308566},
-{Name = "How You Feel", ID = 105174222033892},
-{Divider = true},
-{Name = "I'm a Gummy Bear", ID = 133188222109902},
-{Name = "Imma", ID = 139148388599834},
-{Name = "Imma (Slow)", ID = 139148388599834, Speed = 0.75},
-{Name = "In My Feelings", ID = 129655276640546},
-{Name = "In the End", ID = 117125226382337},
-{Divider = true},
-{Name = "Jiggy", ID = 100177280567649},
-{Name = "Jiggle", ID = 116369780386936},
-{Name = "Jungle", ID = 78337295886429},
-{Divider = true},
-{Name = "Kick", ID = 136684924748195},
-{Name = "Koto", ID = 93684150668786},
-{Name = "Kriss Kross", ID = 131726076631029},
-{Divider = true},
-{Name = "Leaf", ID = 112117163073046},
-{Name = "Lean", ID = 139148405898144},
-{Name = "Lemonade", ID = 125134707835105},
-{Name = "Let's Go", ID = 92534571994848},
-{Name = "Lift Off", ID = 77134017262796},
-{Name = "Like That", ID = 129690192535974},
-{Name = "Liquid", ID = 93170660505618},
-{Name = "Loosing It", ID = 94819139632832},
-{Name = "Loom", ID = 80495107024340},
-{Name = "Lumberjack", ID = 126580970716630},
-{Name = "Lyrical", ID = 125079877993376},
-{Divider = true},
-{Name = "M", ID = 138112012258643},
-{Name = "Make It", ID = 100131309856257},
-{Name = "Make It Rain", ID = 100643285137768},
-{Name = "Make Me", ID = 89761302048916},
-{Name = "Make Me Proud", ID = 93170660505618},
-{Name = "Man's Not Hot", ID = 116614992219971},
-{Name = "Mask Off", ID = 115557579308566},
-{Name = "Me and My Kicks", ID = 105174222033892},
-{Name = "Milly Rock", ID = 133188222109902},
-{Name = "Mind", ID = 139148388599834},
-{Name = "Mi Gente", ID = 129655276640546},
-{Name = "Misery", ID = 117125226382337},
-{Name = "Mix", ID = 100177280567649},
-{Name = "MoonWalk", ID = 116369780386936},
-{Name = "Mosh", ID = 78337295886429},
-{Name = "Move It", ID = 136684924748195},
-{Name = "Move Your Body", ID = 93684150668786},
-{Name = "Mr. Krabs", ID = 131726076631029},
-{Divider = true},
-{Name = "Nae Nae", ID = 112117163073046},
-{Name = "Nasty", ID = 139148405898144},
-{Name = "New Thang", ID = 125134707835105},
-{Name = "New York", ID = 92534571994848},
-{Name = "No Limit", ID = 77134017262796},
-{Name = "No Stylist", ID = 129690192535974},
-{Name = "Nod", ID = 93170660505618},
-{Name = "Numb", ID = 94819139632832},
-{Divider = true},
-{Name = "Oh", ID = 80495107024340},
-{Name = "Old Town Road", ID = 126580970716630},
-{Name = "On My Way", ID = 125079877993376},
-{Name = "One Dance", ID = 138112012258643},
-{Name = "Open", ID = 100131309856257},
-{Name = "Outta My Mind", ID = 100643285137768},
-{Name = "Over It", ID = 89761302048916},
-{Divider = true},
-{Name = "Party", ID = 93170660505618},
-{Name = "Party Rock Anthem", ID = 116614992219971},
-{Name = "Peanut Butter Jelly Time", ID = 115557579308566},
-{Name = "Pick It Up", ID = 105174222033892},
-{Name = "Pop", ID = 133188222109902},
-{Name = "Poppin'", ID = 139148388599834},
-{Name = "Pose", ID = 129655276640546},
-{Name = "Push It", ID = 117125226382337},
-{Name = "Push Up", ID = 100177280567649},
-{Divider = true},
-{Name = "Quirk", ID = 116369780386936},
-{Divider = true},
-{Name = "Rage", ID = 78337295886429},
-{Name = "Raise Up", ID = 136684924748195},
-{Name = "Rattle", ID = 93684150668786},
-{Name = "Redbone", ID = 131726076631029},
-{Name = "Renegade", ID = 112117163073046},
-{Name = "Reload", ID = 139148405898144},
-{Name = "Ride", ID = 125134707835105},
-{Name = "Right Now", ID = 92534571994848},
-{Name = "Rock", ID = 77134017262796},
-{Name = "Roll", ID = 129690192535974},
-{Name = "Rollie", ID = 93170660505618},
-{Name = "Rotation", ID = 94819139632832},
-{Name = "Run", ID = 80495107024340},
-{Divider = true},
-{Name = "Savage", ID = 126580970716630},
-{Name = "Say So", ID = 125079877993376},
-{Name = "Shake", ID = 138112012258643},
-{Name = "Shimmy", ID = 100131309856257},
-{Name = "Shoot", ID = 100643285137768},
-{Name = "Shy", ID = 89761302048916},
-{Name = "Side to Side", ID = 93170660505618},
-{Name = "Sleigh Ride", ID = 116614992219971},
-{Name = "Slide", ID = 115557579308566},
-{Name = "Slow Motion", ID = 105174222033892},
-{Name = "Smooth Criminal", ID = 133188222109902},
-{Name = "Snap", ID = 139148388599834},
-{Name = "Solo", ID = 129655276640546},
-{Name = "Spin", ID = 117125226382337},
-{Name = "Stomp", ID = 100177280567649},
-{Name = "Stutter", ID = 116369780386936},
-{Name = "Suave", ID = 78337295886429},
-{Name = "Swing", ID = 136684924748195},
-{Divider = true},
-{Name = "Taki Taki", ID = 93684150668786},
-{Name = "Tap", ID = 131726076631029},
-{Name = "Teach Me How to Dougie", ID = 112117163073046},
-{Name = "Tear Drop", ID = 139148405898144},
-{Name = "Techno", ID = 125134707835105},
-{Name = "The Floss", ID = 92534571994848},
-{Name = "The Git Up", ID = 77134017262796},
-{Name = "The Woah", ID = 129690192535974},
-{Name = "Thriller", ID = 93170660505618},
-{Name = "Tik Tok", ID = 94819139632832},
-{Name = "Time Warp", ID = 80495107024340},
-{Name = "Too Lit", ID = 126580970716630},
-{Name = "Twerk", ID = 125079877993376},
-{Divider = true},
-{Name = "Up", ID = 138112012258643},
-{Name = "Uptown Funk", ID = 100131309856257},
-{Divider = true},
-{Name = "Vogue", ID = 100643285137768},
-{Divider = true},
-{Name = "Walk It Talk It", ID = 89761302048916},
-{Name = "Whip", ID = 93170660505618},
-{Name = "Wipe Out", ID = 116614992219971},
-{Name = "Woah", ID = 115557579308566},
-{Name = "Wobble", ID = 105174222033892},
-{Divider = true},
-{Name = "YMCA", ID = 133188222109902},
-{Divider = true},
-{Name = "Zanku", ID = 139148388599834},
+{Name = "Shucks", ID = 74238051754912},
+{Name = "Silly Billy", ID = 107464355830477},
+{Name = "Subterfuge", ID = 87482480949358},
+{Name = "Richard Watterson (the hero)", ID = 74012585744751},
+{Name = "Immaterial", ID = 90127032448242},
+{Name = "Run away", ID = 131562546189485},
+{Name = "Indian dance", ID = 127543751398328},
+{Name = "Headlock", ID = 97992194141034},
+{Name = "Gangdance", ID = 121267065315946},
+{Name = "Bluelock", ID = 76975616044095},
 }
 
-for i,v in next, Forsaken do
-    if v.Divider == true then
-        DancesB:Divider()
-    else
-        DancesB:Button(v.Name, function()
-            CreateAnimation(v.Name, v.ID)
-            PlayAnim(Character, Anims[v.Name], 0.1, v.Speed or 1) -- Add speed parameter
-            if v.SoundID then
-                local Sound = Instance.new("Sound", workspace)
-                Sound.SoundId = "rbxassetid://"..v.SoundID
-                Sound:Play()
-                Sound.Ended:Connect(function()
-                    Sound:Destroy()
-                end)
-            end
-        end)
-    end
+for i, v in pairs(Forsaken) do
+if v.Divider then
+DancesB:Line()
+else
+DancesB:Button(v.Name, v.Name, function()
+if not Anims:FindFirstChild(v.Name) then
+CreateAnimation(v.Name, v.ID)
+end
+PlayAnim(Character, Anims[v.Name], 0, v.Speed or 1)
+end)
+end
 end
 
--- Anti-AFK
-task.spawn(function()
-    while true do
-        if Character and Character:IsDescendantOf(workspace) then
-            local root = Character:FindFirstChild("HumanoidRootPart")
-            if root then
-                -- Check if the character is idle (not moving much)
-                local isIdle = (root.Velocity.Magnitude < 0.1 and math.abs(root.Velocity.Y) < 0.1)
+for i, v in pairs(R6Dances) do
+if v.Divider then
+DancesA:Line()
+else
+DancesA:Button(v.Name, v.Name, function()
+if not Anims:FindFirstChild(v.Name) then
+CreateAnimation(v.Name, v.ID)
+end
+PlayAnim(Character, Anims[v.Name], 0, v.Speed or 1)
+end)
+end
+end
 
-                -- If idle for a prolonged period, subtly move the character
-                -- This is a very basic anti-AFK; more advanced ones might
-                -- simulate input or jump
-                if isIdle then
-                    local currentPos = root.CFrame.p
-                    local newPos = currentPos + Vector3.new(0.001, 0, 0) -- Tiny shift
-                    root.CFrame = CFrame.new(newPos)
-                end
+CreateAnimation("Idle", 136078657506707)
+CreateAnimation("Walk", 130213485744288)
+CreateAnimation("Jump", 84397577392351)
+CreateAnimation("Fall", 90270295182351)
+
+game:GetService("RunService").Heartbeat:Connect(function()
+for i,v in pairs(Character:FindFirstChildOfClass("Humanoid"):GetPlayingAnimationTracks()) do
+v:Stop(0)
+end
+local HitFloor,HitPosition = Raycast(RootPart.Position, (CFrame.new(RootPart.Position, RootPart.Position + Vector3.new(0, -1, 0))).LookVector, 4, Character)
+TorsoVelocity = (RootPart.Velocity).Magnitude
+TorsoVerticalVelocity = RootPart.Velocity.Y
+if TorsoVerticalVelocity > 1 and HitFloor == nil then
+if Jumped == false then
+Jumped = true
+PlayAnim(Character, Anims.Jump, 0.1, 1)
+end
+Falled = false
+Idled = false
+Walked = false
+StopAnim(Character, Anims.Fall)
+StopAnim(Character, Anims.Idle)
+StopAnim(Character, Anims.Walk)
+elseif TorsoVerticalVelocity < 1 and HitFloor == nil then
+if Falled == false then
+Falled = true
+PlayAnim(Character, Anims.Fall, 0.1, 1)
+end		
+Jumped = false
+Idled = false
+Walked = false
+StopAnim(Character, Anims.Jump)
+StopAnim(Character, Anims.Idle)
+StopAnim(Character, Anims.Walk)
+elseif TorsoVelocity < 1 and HitFloor ~= nil then
+if Idled == false then
+Idled = true
+PlayAnim(Character, Anims.Idle, 0.1, 0.1)
+end
+Jumped = false
+Falled = false
+Walked = false
+StopAnim(Character, Anims.Jump)
+StopAnim(Character, Anims.Fall)
+StopAnim(Character, Anims.Walk)
+elseif TorsoVelocity > 1 and HitFloor ~= nil then
+if Walked == false then
+Walked = true
+PlayAnim(Character, Anims.Walk,0.1,1)
+end
+Jumped = false
+Falled = false
+Idled = false
+StopAnim(Character, Anims.Jump)
+StopAnim(Character, Anims.Fall)
+StopAnim(Character, Anims.Idle)
+end
+end)
+
+
+warn[[
+Tapping microphone "Hello?, helloooo?? Is this thing on?" —static crackles- “Ah, there we go. Ladies and gentlemen! Welcome to the hit show 'No One Can Prove Melon Is A Skid!' Fasten your seat belts; what you’re about to hear could turn the world upside down.
+“For our first guest today, we have…uh –wait, what was the name again?” —shuffling papers— "Ah, yes! The respected keyboard warrior who genuinely thinks they have discovered the biggest scandal in the world of scripting! Tell us sir, what revolutionary evidence that you have today?
+—awkward silence— "Oh? Nothing? No proof? Just vibes? Fascinating. Truly groundbreaking investigative work."
+So, people, here you go. Another ‘Baseless Accusations & Keyboard Rage!‘ episode. Stay tuned because we are heading straight into the mind-blowing world of ‘People Who Think Copy-Pasting a GitHub Repo Makes Them Elite Hackers!”
+—applause track plays – Until next time!
+]]
+
+
+
+-- Register the Run animation
+CreateAnimation("Run", 98913971068661)
+
+-- Track run state
+local isRunning = false
+local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+
+-- Persistent GUI for Run Toggle
+local function createRunToggleUI()
+    if game.CoreGui:FindFirstChild("RunToggleUI") then
+        game.CoreGui.RunToggleUI:Destroy()
+    end
+
+    local RunToggleUI = Instance.new("ScreenGui")
+    RunToggleUI.Name = "RunToggleUI"
+    RunToggleUI.ResetOnSpawn = false
+    RunToggleUI.Parent = game.CoreGui
+
+    local RunButton = Instance.new("TextButton")
+    RunButton.Size = UDim2.new(0, 100, 0, 40)
+    RunButton.Position = UDim2.new(0, 20, 0.5, 0)
+    RunButton.Text = "Run"
+    RunButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    RunButton.TextColor3 = Color3.new(1, 1, 1)
+    RunButton.Font = Enum.Font.GothamBold
+    RunButton.TextSize = 18
+    RunButton.Draggable = true
+    RunButton.Active = true
+    RunButton.Parent = RunToggleUI
+
+    RunButton.MouseButton1Click:Connect(function()
+	isRunning = not isRunning
+	RunButton.Text = isRunning and "Walk" or "Run"
+	Humanoid.WalkSpeed = isRunning and 30 or 16
+
+	-- Immediately play run animation if toggled and moving
+	if isRunning and Humanoid.MoveDirection.Magnitude > 0 then
+		StopAnim(Character, Anims.Walk)
+		PlayAnim(Character, Anims.Run, 0.1, 1)
+	elseif not isRunning and Humanoid.MoveDirection.Magnitude > 0 then
+		StopAnim(Character, Anims.Run)
+		PlayAnim(Character, Anims.Walk, 0.1, 1)
+	end
+end)
+
+end
+
+createRunToggleUI()
+
+-- Modify heartbeat to play run animation only during movement if run mode is enabled
+game:GetService("RunService").Heartbeat:Connect(function()
+    for _, v in pairs(Humanoid:GetPlayingAnimationTracks()) do
+        v:Stop(0)
+    end
+
+    local HitFloor = Raycast(RootPart.Position, Vector3.new(0, -1, 0), 4, Character)
+    local TorsoVelocity = RootPart.Velocity.Magnitude
+    local TorsoVerticalVelocity = RootPart.Velocity.Y
+
+    if TorsoVerticalVelocity > 1 and not HitFloor then
+        if not Jumped then
+            Jumped = true
+            PlayAnim(Character, Anims.Jump, 0.1, 1)
+        end
+        Falled, Idled, Walked = false, false, false
+    elseif TorsoVerticalVelocity < 1 and not HitFloor then
+        if not Falled then
+            Falled = true
+            PlayAnim(Character, Anims.Fall, 0.1, 1)
+        end
+        Jumped, Idled, Walked = false, false, false
+    elseif TorsoVelocity < 1 and HitFloor then
+        if not Idled then
+            Idled = true
+            PlayAnim(Character, Anims.Idle, 0.1, 0.1)
+        end
+        Jumped, Falled, Walked = false, false, false
+    elseif TorsoVelocity > 1 and HitFloor then
+        if isRunning then
+            if not Walked then
+                Walked = true
+                PlayAnim(Character, Anims.Run, 0.1, 1)
+            end
+        else
+            if not Walked then
+                Walked = true
+                PlayAnim(Character, Anims.Walk, 0.1, 1)
             end
         end
-        wait(5) -- Check every 5 seconds
+        Jumped, Falled, Idled = false, false, false
     end
 end)
 
--- Anti-Fling and Anti-Shake Rig Stabilizer
+-- Self-Healing Rig Fix
+
+
+-- Auto-fix body parts if they fall apart or drift
 task.spawn(function()
     while true do
         if Character and Character:IsDescendantOf(workspace) then
             for _, part in pairs(Character:GetDescendants()) do
-                if part:IsA("BasePart") and not part.Anchored then
+                if part:IsA("BasePart") then
+                    -- Reset physics
                     part.Velocity = Vector3.zero
                     part.RotVelocity = Vector3.zero
                     part.AssemblyLinearVelocity = Vector3.zero
@@ -844,27 +695,27 @@ end)
 
 -- Anti-Shake Rig Stabilizer
 task.spawn(function()
-    while true do
-        if Character and Character:IsDescendantOf(workspace) then
-            local root = Character:FindFirstChild("HumanoidRootPart")
-            local isIdle = (root.Velocity.Magnitude < 0.1 and math.abs(root.Velocity.Y) < 0.1)
+	while true do
+		if Character and Character:IsDescendantOf(workspace) then
+			local root = Character:FindFirstChild("HumanoidRootPart")
+			local isIdle = (root.Velocity.Magnitude < 0.1 and math.abs(root.Velocity.Y) < 0.1)
 
-            if isIdle then
-                for _, part in pairs(Character:GetDescendants()) do
-                    if part:IsA("BasePart") and not part.Anchored then
-                        part.Velocity = Vector3.zero
-                        part.RotVelocity = Vector3.zero
-                        part.AssemblyLinearVelocity = Vector3.zero
-                        part.AssemblyAngularVelocity = Vector3.zero
+			if isIdle then
+				for _, part in pairs(Character:GetDescendants()) do
+					if part:IsA("BasePart") and not part.Anchored then
+						part.Velocity = Vector3.zero
+						part.RotVelocity = Vector3.zero
+						part.AssemblyLinearVelocity = Vector3.zero
+						part.AssemblyAngularVelocity = Vector3.zero
 
-                        -- Slight refresh to kill drift
-                        if (part.Position - root.Position).Magnitude > 0.1 then
-                            part.CFrame = part.CFrame -- This effectively "resets" its physics state
-                        end
-                    end
-                end
-            end
-        end
-        wait(1) -- More frequent checks for shaking
-    end
+						-- Slight refresh to kill drift
+						if (part.Position - root.Position).Magnitude < 5 then
+							part.CFrame = part.CFrame
+						end
+					end
+				end
+			end
+		end
+		wait(0.2)
+	end
 end)
