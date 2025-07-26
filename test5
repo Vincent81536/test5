@@ -856,3 +856,4 @@ player.CharacterAdded:Connect(function()
 	local mini = game.CoreGui:FindFirstChild("GuiMiniButton")
 	if mini then mini:Destroy() end
 end)
+end
