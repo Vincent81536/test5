@@ -631,6 +631,32 @@ local function createRunToggleUI()
 	end
 end)
 
+
+    -- Create Hide GUI Button
+    local HideGUIButton = Instance.new("TextButton")
+    HideGUIButton.Size = UDim2.new(0, 100, 0, 40)
+    HideGUIButton.Position = UDim2.new(0, 20, 0.5, 50)
+    HideGUIButton.Text = "Hide GUI"
+    HideGUIButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    HideGUIButton.TextColor3 = Color3.new(1, 1, 1)
+    HideGUIButton.Font = Enum.Font.GothamBold
+    HideGUIButton.TextSize = 18
+    HideGUIButton.Draggable = true
+    HideGUIButton.Active = true
+    HideGUIButton.Parent = RunToggleUI
+
+    HideGUIButton.MouseButton1Click:Connect(function()
+        local Flux = game.CoreGui:FindFirstChild("FluxLib")
+        if Flux then
+            Flux.Enabled = not Flux.Enabled
+            if Flux.Enabled and Flux:FindFirstChild("Main") then
+                Flux.Main.Position = UDim2.new(0.5, -Flux.Main.Size.X.Offset / 2, 0.5, -Flux.Main.Size.Y.Offset / 2)
+            end
+        end
+    end)
+
+
+
 end
 
 createRunToggleUI()
