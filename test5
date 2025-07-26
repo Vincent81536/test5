@@ -486,127 +486,6 @@ end)
 end
 end
 
--- Start of new GUI Button code
-local Players = game:GetService("Players")
-local UserInputService = game:GetService("UserInputService")
-local RunService = game:GetService("RunService")
-
-local LocalPlayer = Players.LocalPlayer
-local CurrentCharacter = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-local Humanoid = CurrentCharacter:WaitForChild("Humanoid")
-
--- Create the draggable GUI button
-local GuiButtonScreen = Instance.new("ScreenGui")
-GuiButtonScreen.Name = "DisbeliefHubToggleButton"
-GuiButtonScreen.ResetOnSpawn = false -- Keep the GUI when the player dies
-GuiButtonScreen.Parent = game.CoreGui
-
-local ToggleButton = Instance.new("TextButton")
-ToggleButton.Name = "GUIButton"
-ToggleButton.Size = UDim2.new(0, 80, 0, 40)
-ToggleButton.Position = UDim2.new(0.9, -90, 0.1, 0) -- Initial position (top-right corner)
-ToggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-ToggleButton.TextColor3 = Color3.new(1, 1, 1)
-ToggleButton.Text = "GUI"
-ToggleButton.Font = Enum.Font.GothamBold
-ToggleButton.TextSize = 18
-ToggleButton.BorderColor3 = Color3.fromRGB(30, 30, 30)
-ToggleButton.BorderSizePixel = 2
-ToggleButton.Parent = GuiButtonScreen
-
--- Make the button draggable
-local dragging = false
-local dragStart = Vector2.new(0, 0)
-local startPosition = UDim2.new(0, 0, 0, 0)
-
-ToggleButton.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        dragging = true
-        dragStart = input.Position
-        startPosition = ToggleButton.Position
-        input.Handled = true
-    end
-end)
-
-ToggleButton.InputChanged:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-        if dragging then
-            local delta = input.Position - dragStart
-            ToggleButton.Position = UDim2.new(
-                startPosition.X.Scale,
-                startPosition.X.Offset + delta.X,
-                startPosition.Y.Scale,
-                startPosition.Y.Offset + delta.Y
-            )
-        end
-    end
-end)
-
-ToggleButton.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        dragging = false
-    end
-end)
-
--- Function to toggle the visibility of the Disbelief Hub GUI (which is 'GUI' in this script)
-local function toggleDisbeliefHubGUI()
-    if GUI then
-        GUI.Enabled = not GUI.Enabled
-        if GUI.Enabled then
-            -- Center the GUI when it becomes visible
-            local viewportSize = workspace.CurrentCamera.ViewportSize
-            local guiAbsoluteSize = GUI.AbsoluteSize
-            GUI.Position = UDim2.new(
-                0.5, -guiAbsoluteSize.X / 2,
-                0.5, -guiAbsoluteSize.Y / 2
-            )
-        end
-    end
-end
-
--- Connect the button click to the toggle function
-ToggleButton.MouseButton1Click:Connect(toggleDisbeliefHubGUI)
-
--- Handle character death and respawn
-LocalPlayer.CharacterAdded:Connect(function(newCharacter)
-    CurrentCharacter = newCharacter
-    Humanoid = CurrentCharacter:WaitForChild("Humanoid")
-    -- Show the button when a new character is added (respawn)
-    GuiButtonScreen.Enabled = true
-    -- Ensure the Disbelief Hub GUI is hidden initially on respawn
-    if GUI then
-        GUI.Enabled = false
-    end
-    -- Reconnect the Died event for the new Humanoid
-    Humanoid.Died:Connect(function()
-        -- Hide the button when the character dies
-        GuiButtonScreen.Enabled = false
-        -- Also hide the Disbelief Hub GUI if it's open
-        if GUI then
-            GUI.Enabled = false
-        end
-    end)
-end)
-
--- Initial state: Hide the Disbelief Hub GUI if it exists when the script starts
-if GUI then
-    GUI.Enabled = false
-end
-
--- Ensure the button is visible initially
-GuiButtonScreen.Enabled = true
-
--- Connect the Died event for the initial Humanoid
-Humanoid.Died:Connect(function()
-    -- Hide the button when the character dies
-    GuiButtonScreen.Enabled = false
-    -- Also hide the Disbelief Hub GUI if it's open
-    if GUI then
-        GUI.Enabled = false
-    end
-end)
--- End of new GUI Button code
-
 CreateAnimation("Idle", 136078657506707)
 CreateAnimation("Walk", 130213485744288)
 CreateAnimation("Jump", 84397577392351)
@@ -684,17 +563,19 @@ CreateAnimation("Run", 98913971068661)
 local isRunning = false
 local Humanoid = Character:FindFirstChildOfClass("Humanoid")
 
--- Persistent GUI for Run Toggle
-local function createRunToggleUI()
-    if game.CoreGui:FindFirstChild("RunToggleUI") then
-        game.CoreGui.RunToggleUI:Destroy()
+-- Persistent GUI for Run Toggle and HideGui Button
+local function createUtilityButtonsUI()
+    -- Destroy existing UI if it exists to prevent duplicates
+    if game.CoreGui:FindFirstChild("UtilityButtonsUI") then
+        game.CoreGui.UtilityButtonsUI:Destroy()
     end
 
-    local RunToggleUI = Instance.new("ScreenGui")
-    RunToggleUI.Name = "RunToggleUI"
-    RunToggleUI.ResetOnSpawn = false
-    RunToggleUI.Parent = game.CoreGui
+    local UtilityButtonsUI = Instance.new("ScreenGui")
+    UtilityButtonsUI.Name = "UtilityButtonsUI"
+    UtilityButtonsUI.ResetOnSpawn = false
+    UtilityButtonsUI.Parent = game.CoreGui
 
+    -- Run Button
     local RunButton = Instance.new("TextButton")
     RunButton.Size = UDim2.new(0, 100, 0, 40)
     RunButton.Position = UDim2.new(0, 20, 0.5, 0)
@@ -705,26 +586,87 @@ local function createRunToggleUI()
     RunButton.TextSize = 18
     RunButton.Draggable = true
     RunButton.Active = true
-    RunButton.Parent = RunToggleUI
+    RunButton.Parent = UtilityButtonsUI
 
     RunButton.MouseButton1Click:Connect(function()
-	isRunning = not isRunning
-	RunButton.Text = isRunning and "Walk" or "Run"
-	Humanoid.WalkSpeed = isRunning and 30 or 16
+        isRunning = not isRunning
+        RunButton.Text = isRunning and "Walk" or "Run"
+        Humanoid.WalkSpeed = isRunning and 30 or 16
 
-	-- Immediately play run animation if toggled and moving
-	if isRunning and Humanoid.MoveDirection.Magnitude > 0 then
-		StopAnim(Character, Anims.Walk)
-		PlayAnim(Character, Anims.Run, 0.1, 1)
-	elseif not isRunning and Humanoid.MoveDirection.Magnitude > 0 then
-		StopAnim(Character, Anims.Run)
-		PlayAnim(Character, Anims.Walk, 0.1, 1)
-	end
-end)
+        -- Immediately play run animation if toggled and moving
+        if isRunning and Humanoid.MoveDirection.Magnitude > 0 then
+            StopAnim(Character, Anims.Walk)
+            PlayAnim(Character, Anims.Run, 0.1, 1)
+        elseif not isRunning and Humanoid.MoveDirection.Magnitude > 0 then
+            StopAnim(Character, Anims.Run)
+            PlayAnim(Character, Anims.Walk, 0.1, 1)
+        end
+    end)
 
+    -- HideGui Button
+    local HideGuiButton = Instance.new("TextButton")
+    HideGuiButton.Size = UDim2.new(0, 100, 0, 40)
+    HideGuiButton.Position = UDim2.new(0, 20, 0.6, 0) -- Position below the Run button
+    HideGuiButton.Text = "HideGui"
+    HideGuiButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    HideGuiButton.TextColor3 = Color3.new(1, 1, 1)
+    HideGuiButton.Font = Enum.Font.GothamBold
+    HideGuiButton.TextSize = 18
+    HideGuiButton.Draggable = true
+    HideGuiButton.Active = true
+    HideGuiButton.Parent = UtilityButtonsUI
+
+    HideGuiButton.MouseButton1Click:Connect(function()
+        if GUI then
+            GUI.Enabled = not GUI.Enabled
+            HideGuiButton.Text = GUI.Enabled and "HideGui" or "ShowGui"
+        end
+    end)
+
+    -- Handle character death and respawn for both buttons
+    local LocalPlayer = game.Players.LocalPlayer
+    LocalPlayer.CharacterAdded:Connect(function(newCharacter)
+        Character = newCharacter
+        Humanoid = Character:WaitForChild("Humanoid")
+        -- Show the utility buttons when a new character is added (respawn)
+        UtilityButtonsUI.Enabled = true
+        -- Ensure the Disbelief Hub GUI is hidden initially on respawn
+        if GUI then
+            GUI.Enabled = false
+            HideGuiButton.Text = "ShowGui" -- Update button text to reflect hidden state
+        end
+        -- Reconnect the Died event for the new Humanoid
+        Humanoid.Died:Connect(function()
+            -- Hide the utility buttons when the character dies
+            UtilityButtonsUI.Enabled = false
+            -- Also hide the Disbelief Hub GUI if it's open
+            if GUI then
+                GUI.Enabled = false
+            end
+        end)
+    end)
+
+    -- Connect the Died event for the initial Humanoid
+    Humanoid.Died:Connect(function()
+        -- Hide the utility buttons when the character dies
+        UtilityButtonsUI.Enabled = false
+        -- Also hide the Disbelief Hub GUI if it's open
+        if GUI then
+            GUI.Enabled = false
+        end
+    end)
+
+    -- Initial state: Ensure the Disbelief Hub GUI is hidden when the script starts
+    if GUI then
+        GUI.Enabled = false
+        HideGuiButton.Text = "ShowGui" -- Set initial button text
+    end
+
+    -- Ensure the utility buttons are visible initially
+    UtilityButtonsUI.Enabled = true
 end
 
-createRunToggleUI()
+createUtilityButtonsUI()
 
 -- Modify heartbeat to play run animation only during movement if run mode is enabled
 game:GetService("RunService").Heartbeat:Connect(function()
