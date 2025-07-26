@@ -599,7 +599,7 @@ local function createRunToggleUI()
     RunButton.Active = true
     RunButton.Parent = RunToggleUI
 
-   RunButton.MouseButton1Click:Connect(function()
+    RunButton.MouseButton1Click:Connect(function()
 	isRunning = not isRunning
 	RunButton.Text = isRunning and "Walk" or "Run"
 	Humanoid.WalkSpeed = isRunning and 30 or 16
@@ -613,6 +613,8 @@ local function createRunToggleUI()
 		PlayAnim(Character, Anims.Walk, 0.1, 1)
 	end
 end)
+
+end
 
 createRunToggleUI()
 
