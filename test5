@@ -2,7 +2,7 @@ Reanimate = getgenv().Framework
 local Character = nil
 
 if Reanimate == "Hatless" then
-local Hatless = loadstring(game:HttpGet("https://raw.githubusercontent.com/Vincent81536/hatless/refs/heads/main/hatless"))
+local Hatless = loadstring(game:HttpGet("https://raw.githubusercontent.com/Vincent81536/hatless/refs/heads/main/hatless"))()
 Character = Hatless.FakeCharacter
 elseif getgenv().Framework == "Krypton" then
 KryptonConfiguration = {
@@ -64,10 +64,10 @@ Hats = {
 },
 },
 }
-local Reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/Vincent81536/module/refs/heads/main/module"))
+local Reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/Vincent81536/module/refs/heads/main/module"))()
 Character = Reanimate:GetCharacter()
 elseif Reanimate == "Emperyean" then
-local Reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/Vincent81536/module-/refs/heads/main/EmperyeanReanimate"))
+local Reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/Vincent81536/module-/refs/heads/main/EmperyeanReanimate"))()
 Reanimate.Start({
 Accessories = {
 -- SB Rig
@@ -186,7 +186,7 @@ return end
 
 local RootPart = Character.HumanoidRootPart
 local Jumped,Falled,Idled,Walked = false,false,false,false
-local AnimatorModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/Vincent81536/AnimatorModule/refs/heads/main/AnimatorModule"))
+local AnimatorModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/Vincent81536/AnimatorModule/refs/heads/main/AnimatorModule"))()
 local Anims = Instance.new("Folder", workspace)
 
 
